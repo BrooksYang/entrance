@@ -1,0 +1,13 @@
+{
+    "name": "brooksyang/entrance",
+    "description": "Role-based Permissions for laravel 5.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "BrooksYang",
+            "email": "brooksyang@outlook.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
