@@ -15,7 +15,7 @@ class EntranceServiceProvider extends ServiceProvider
     {
         // Publish the config file
         $this->publishes([
-            __DIR__.'/../config/entrance.php' => config_path('entrance.php'),
+            __DIR__.'/../../config/entrance.php' => config_path('entrance.php'),
         ], 'config');
 
         // Register the commands.
