@@ -7,14 +7,26 @@ use Illuminate\Support\Facades\Cache;
 trait EntranceUserTrait
 {
     /**
+     * get the Cache Key
+     *
+     * @return string
+     */
+    private function cachedKey()
+    {
+        $userPrimaryKey = $this->primaryKey;
+        $cacheKey = 'entrance_role_for_user_' . $this->$userPrimaryKey;
+
+        return $cacheKey;
+    }
+
+    /**
      * Big block of caching functionality.
      *
      * @return mixed
      */
-    public function cachedRoles()
+    public function cachedRole()
     {
-        $userPrimaryKey = $this->primaryKey;
-        $cacheKey = 'entrance_role_for_user_' . $this->$userPrimaryKey;
+        $cacheKey = $this->cachedKey();
 
         return Cache::tags(config('entrance.role_user'))->remember($cacheKey, config('session.lifetime'), function () {
             return $this->role;
@@ -70,6 +82,34 @@ trait EntranceUserTrait
     public function role()
     {
         return $this->belongsTo(config('entrance.role'));
+    }
+
+    /**
+     * check if the user is super administrator.
+     *
+     * @return bool
+     */
+    public function isAdministrator()
+    {
+        return $this->id == 1;
+    }
+
+    /**
+     * Check if user has a permission by the request method and uri.
+     *
+     * @param $method
+     * @param $uri
+     * @return bool
+     */
+    public function hasPermission($method, $uri)
+    {
+        if ($this->isAdministrator()) return true;
+
+        $role = $this->cachedRole();
+
+        if (empty($role)) return false;
+
+        return $role->hasPermission($method, $uri);
     }
 
     /**

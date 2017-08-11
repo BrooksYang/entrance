@@ -18,7 +18,7 @@ interface RoleInterface
      * @param $uri
      * @return array|bool
      */
-    public function can($method, $uri);
+    public function hasPermission($method, $uri);
 
     /**
      * Many-to-Many relations with the permission model.

@@ -101,19 +101,7 @@ trait EntranceRoleTrait
      * @param $uri
      * @return bool
      */
-    public function can($method, $uri)
-    {
-        return $this->permissions()->where(['method' => $method, 'uri' => $uri])->exists();
-    }
-
-    /**
-     * Check if user has a permission in cache by the request method and uri.
-     *
-     * @param $method
-     * @param $uri
-     * @return bool
-     */
-    public function cachedCan($method, $uri)
+    public function hasPermission($method, $uri)
     {
         $cacheKey = $this->cachedKey();
 

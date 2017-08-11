@@ -12,6 +12,22 @@ interface UserInterface
     public function role();
 
     /**
+     * check if the user is super administrator.
+     *
+     * @return mixed
+     */
+    public function isAdministrator();
+
+    /**
+     * Checks permission.
+     *
+     * @param $method
+     * @param $uri
+     * @return array|bool
+     */
+    public function hasPermission($method, $uri);
+
+    /**
      * Alias to eloquent one-to-many relation's attach() method.
      *
      * @param mixed $role
