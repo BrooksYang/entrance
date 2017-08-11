@@ -2,8 +2,51 @@
 
 namespace BrooksYang\Entrance\Traits;
 
+use Illuminate\Support\Facades\Cache;
+
 trait EntrancePermissionTrait
 {
+    /**
+     * Flush cache after inserts and updates
+     *
+     * @param array $options
+     * @return mixed
+     */
+    public function save(array $options = [])
+    {
+        $result = parent::save($options);
+        Cache::tags(config('entrance.permission_role_table'))->flush();
+
+        return $result;
+    }
+
+    /**
+     * Flush cache after deleting. Both soft or hard
+     *
+     * @param array $options
+     * @return mixed
+     */
+    public function delete(array $options = [])
+    {
+        $result = parent::delete($options);
+        Cache::tags(config('entrance.permission_role_table'))->flush();
+
+        return $result;
+    }
+
+    /**
+     * Flush cache when restoring soft deleting
+     *
+     * @return mixed
+     */
+    public function restore()
+    {
+        $result = parent::restore();
+        Cache::tags(config('entrance.permission_role_table'))->flush();
+
+        return $result;
+    }
+
     /**
      * Many-to-Many relations with role model.
      *

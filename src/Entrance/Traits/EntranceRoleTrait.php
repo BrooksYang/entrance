@@ -34,7 +34,7 @@ trait EntranceRoleTrait
     }
 
     /**
-     * Flush cache when after inserts and updates
+     * Flush cache after inserts and updates
      *
      * @param array $options
      * @return mixed
