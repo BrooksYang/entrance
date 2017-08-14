@@ -38,7 +38,7 @@ class EntrancePermission
                 return response()->json(['code' => 403, 'msg' => 'Forbidden']);
             }
 
-            abort(403, 'Forbidden');
+            return redirect()->intended(config('redirect_to'));
         }
 
         return $next($request);
