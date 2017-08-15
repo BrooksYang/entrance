@@ -28,7 +28,7 @@ trait EntranceRoleTrait
     {
         $cacheKey = $this->cachedKey();
 
-        return Cache::tags(config('entrance.permission_role_table'))->remember($cacheKey, config('session.lifetime'), function () {
+        return Cache::tags('role_permissions')->remember($cacheKey, config('session.lifetime'), function () {
             return $this->permissions()->get();
         });
     }
@@ -42,7 +42,7 @@ trait EntranceRoleTrait
     public function save(array $options = [])
     {
         $result = parent::save($options);
-        Cache::tags(config('entrance.permission_role_table'))->flush();
+        Cache::tags('role_permissions')->flush();
 
         return $result;
     }
@@ -56,7 +56,7 @@ trait EntranceRoleTrait
     public function delete(array $options = [])
     {
         $result = parent::delete($options);
-        Cache::tags(config('entrance.permission_role_table'))->flush();
+        Cache::tags('role_permissions')->flush();
 
         return $result;
     }
@@ -69,7 +69,7 @@ trait EntranceRoleTrait
     public function restore()
     {
         $result = parent::restore();
-        Cache::tags(config('entrance.permission_role_table'))->flush();
+        Cache::tags('role_permissions')->flush();
 
         return $result;
     }
@@ -91,7 +91,7 @@ trait EntranceRoleTrait
      */
     public function permissions()
     {
-        return $this->belongsToMany(config('entrance.permission'), config('entrance.permission_role_table'));
+        return $this->belongsToMany(config('entrance.permission'), 'role_permissions');
     }
 
     /**
@@ -105,7 +105,7 @@ trait EntranceRoleTrait
     {
         $cacheKey = $this->cachedKey();
 
-        $permissions = Cache::tags(config('entrance.permission_role_table'))->remember($cacheKey, config('session.lifetime'), function () use ($method, $uri) {
+        $permissions = Cache::tags('role_permissions')->remember($cacheKey, config('session.lifetime'), function () use ($method, $uri) {
             return $this->permissions()->get();
         });
 

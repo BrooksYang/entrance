@@ -16,7 +16,7 @@ trait EntranceModuleTrait
         $modulePrimaryKey = $this->primaryKey;
         $cacheKey = 'entrance_permissions_for_module_' . $this->$modulePrimaryKey;
 
-        return Cache::tags(config('entrance.permission_module'))->remember($cacheKey, config('session.lifetime'), function () {
+        return Cache::tags('module_permissions')->remember($cacheKey, config('session.lifetime'), function () {
             return $this->permissions()->get();
         });
     }
@@ -30,7 +30,7 @@ trait EntranceModuleTrait
     public function save(array $options = [])
     {
         $result = parent::save($options);
-        Cache::tags(config('entrance.permission_module'))->flush();
+        Cache::tags('module_permissions')->flush();
 
         return $result;
     }
@@ -44,7 +44,7 @@ trait EntranceModuleTrait
     public function delete(array $options = [])
     {
         $result = parent::delete($options);
-        Cache::tags(config('entrance.permission_module'))->flush();
+        Cache::tags('module_permissions')->flush();
 
         return $result;
     }
@@ -57,7 +57,7 @@ trait EntranceModuleTrait
     public function restore()
     {
         $result = parent::restore();
-        Cache::tags(config('entrance.permission_module'))->flush();
+        Cache::tags('module_permissions')->flush();
 
         return $result;
     }

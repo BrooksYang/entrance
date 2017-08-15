@@ -28,7 +28,7 @@ trait EntranceUserTrait
     {
         $cacheKey = $this->cachedKey();
 
-        return Cache::tags(config('entrance.role_user'))->remember($cacheKey, config('session.lifetime'), function () {
+        return Cache::tags('role_users')->remember($cacheKey, config('session.lifetime'), function () {
             return $this->role;
         });
     }
@@ -42,7 +42,7 @@ trait EntranceUserTrait
     public function save(array $options = [])
     {
         $result = parent::save($options);
-        Cache::tags(config('entrance.role_user'))->flush();
+        Cache::tags('role_users')->flush();
 
         return $result;
     }
@@ -56,7 +56,7 @@ trait EntranceUserTrait
     public function delete(array $options = [])
     {
         $result = parent::delete($options);
-        Cache::tags(config('entrance.role_user'))->flush();
+        Cache::tags('role_users')->flush();
 
         return $result;
     }
@@ -69,7 +69,7 @@ trait EntranceUserTrait
     public function restore()
     {
         $result = parent::restore();
-        Cache::tags(config('entrance.role_user'))->flush();
+        Cache::tags('role_users')->flush();
 
         return $result;
     }
