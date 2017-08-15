@@ -91,7 +91,7 @@ trait EntranceRoleTrait
      */
     public function permissions()
     {
-        return $this->belongsToMany(config('entrance.permission'), 'role_permissions');
+        return $this->belongsToMany(config('entrance.permission'), config('entrance.permission_role_table'));
     }
 
     /**
