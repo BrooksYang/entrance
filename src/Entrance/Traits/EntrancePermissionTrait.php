@@ -15,7 +15,7 @@ trait EntrancePermissionTrait
     public function save(array $options = [])
     {
         $result = parent::save($options);
-        Cache::tags('permissions')->flush();
+        Cache::tags('role_permissions')->flush();
 
         return $result;
     }
@@ -29,7 +29,7 @@ trait EntrancePermissionTrait
     public function delete(array $options = [])
     {
         $result = parent::delete($options);
-        Cache::tags('permissions')->flush();
+        Cache::tags('role_permissions')->flush();
 
         return $result;
     }
@@ -42,7 +42,7 @@ trait EntrancePermissionTrait
     public function restore()
     {
         $result = parent::restore();
-        Cache::tags('permissions')->flush();
+        Cache::tags('role_permissions')->flush();
 
         return $result;
     }
