@@ -6,7 +6,7 @@ use BrooksYang\Entrance\Contracts\PermissionInterface;
 use BrooksYang\Entrance\Traits\EntrancePermissionTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class EntrancePermission extends Model implements PermissionInterface
+class Permission extends Model implements PermissionInterface
 {
     use EntrancePermissionTrait;
 

@@ -2,13 +2,13 @@
 
 namespace BrooksYang\Entrance\Models;
 
-use BrooksYang\Entrance\Contracts\ModuleInterface;
-use BrooksYang\Entrance\Traits\EntranceModuleTrait;
+use BrooksYang\Entrance\Contracts\RoleInterface;
+use BrooksYang\Entrance\Traits\EntranceRoleTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class EntranceModule extends Model implements ModuleInterface
+class Role extends Model implements RoleInterface
 {
-    use EntranceModuleTrait;
+    use EntranceRoleTrait;
 
     /**
      * The database table used by the model.
@@ -25,6 +25,6 @@ class EntranceModule extends Model implements ModuleInterface
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('entrance.modules_table');
+        $this->table = config('entrance.roles_table');
     }
 }

@@ -21,7 +21,7 @@ return [
     | the role if it is in a different namespace.
     |
     */
-    'role' => 'App\Models\Entrance\Role',
+    'role' => 'BrooksYang\Entrance\Models\Role',
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     | Update the permission if it is in a different namespace.
     |
     */
-    'permission' => 'App\Models\Entrance\Permission',
+    'permission' => 'BrooksYang\Entrance\Models\Permission',
 
     /*
     |--------------------------------------------------------------------------
@@ -75,7 +75,7 @@ return [
     | the role if it is in a different namespace.
     |
     */
-    'module' => 'App\Models\Entrance\Module',
+    'module' => 'BrooksYang\Entrance\Models\Module',
 
     /*
     |--------------------------------------------------------------------------
