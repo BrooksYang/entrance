@@ -72,7 +72,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This is the Role model used by Entrance to create correct relations.  Update
-    | the role if it is in a different namespace.
+    | the module if it is in a different namespace.
     |
     */
     'module' => 'BrooksYang\Entrance\Models\Module',
@@ -82,7 +82,7 @@ return [
     | Entrance Modules Table
     |--------------------------------------------------------------------------
     |
-    | This is the roles table used by Entrance to save roles to the database.
+    | This is the modules table used by Entrance to save modules to the database.
     |
     */
     'modules_table' => 'auth_modules',
