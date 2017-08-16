@@ -129,7 +129,6 @@ trait EntranceRoleTrait
 
         static::deleting(function ($role) {
             if (!method_exists(config('entrance.role'), 'bootSoftDeletes')) {
-                $role->users()->sync([]);
                 $role->permissions()->sync([]);
             }
 

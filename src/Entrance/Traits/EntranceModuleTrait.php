@@ -71,25 +71,4 @@ trait EntranceModuleTrait
     {
         return $this->hasMany(config('entrance.permission'));
     }
-
-    /**
-     * Boot the role model
-     * Attach event listener to remove the many-to-many records when trying to delete
-     * Will NOT delete any records if the role model uses soft deletes.
-     *
-     * @return void|bool
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($role) {
-            if (!method_exists(config('entrance.role'), 'bootSoftDeletes')) {
-                $role->users()->sync([]);
-                $role->permissions()->sync([]);
-            }
-
-            return true;
-        });
-    }
 }

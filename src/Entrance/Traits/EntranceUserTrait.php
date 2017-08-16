@@ -113,26 +113,6 @@ trait EntranceUserTrait
     }
 
     /**
-     * Boot the user model
-     * Attach event listener to remove the many-to-many records when trying to delete
-     * Will NOT delete any records if the user model uses soft deletes.
-     *
-     * @return void|bool
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($user) {
-            if (!method_exists(config('auth.model'), 'bootSoftDeletes')) {
-                $user->roles()->sync([]);
-            }
-
-            return true;
-        });
-    }
-
-    /**
      * Alias to eloquent many-to-many relation's attach() method.
      *
      * @param mixed $role
