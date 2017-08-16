@@ -30,7 +30,7 @@ class EntrancePermission
     {
         // Get the request method and uri
         $method = $request->method();
-        $uri = $request->path();
+        $uri = $request->route()->uri();
 
         // Check if the user has permission by the request method and uri.
         if ($this->auth->guest() || !$request->user()->hasPermission($method, $uri)) {
