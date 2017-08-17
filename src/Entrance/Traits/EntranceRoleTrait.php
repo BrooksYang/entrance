@@ -137,11 +137,9 @@ trait EntranceRoleTrait
     }
 
     /**
-     * Save the inputted permissions.
+     * Save the inputted permissions and flush cache.
      *
-     * @param mixed $inputPermissions
-     *
-     * @return void
+     * @param $inputPermissions
      */
     public function savePermissions($inputPermissions)
     {
@@ -150,5 +148,7 @@ trait EntranceRoleTrait
         } else {
             $this->permissions()->detach();
         }
+
+        Cache::tags('role_permissions')->flush();
     }
 }
