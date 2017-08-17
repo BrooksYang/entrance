@@ -23,7 +23,7 @@ class EntranceSetupTables extends Migration
         // Create table for storing permissions
         Schema::create('{{ $permissionsTable }}', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique()->comment('permission name');
+            $table->string('name')->comment('permission name');
             $table->string('description')->nullable()->comment('A more detailed explanation of the Permission.');
             $table->string('method');
             $table->string('uri');
