@@ -14,9 +14,22 @@ trait EntranceUserTrait
     private function cachedKey()
     {
         $userPrimaryKey = $this->primaryKey;
-        $cacheKey = 'entrance_role_for_user_' . $this->$userPrimaryKey;
+        $cachedKey = 'entrance_role_for_user_' . $this->$userPrimaryKey;
 
-        return $cacheKey;
+        return $cachedKey;
+    }
+
+    /**
+     * get the Cache Key
+     *
+     * @return string
+     */
+    private function cachedMenuKey()
+    {
+        $userPrimaryKey = $this->primaryKey;
+        $cachedKey = 'entrance_menu_for_user_' . $this->$userPrimaryKey;
+
+        return $cachedKey;
     }
 
     /**
@@ -26,10 +39,46 @@ trait EntranceUserTrait
      */
     public function cachedRole()
     {
-        $cacheKey = $this->cachedKey();
+        $cachedKey = $this->cachedKey();
 
-        return Cache::tags('role_users')->remember($cacheKey, config('session.lifetime'), function () {
+        return Cache::tags('role_users')->remember($cachedKey, config('session.lifetime'), function () {
             return $this->role;
+        });
+    }
+
+    /**
+     * Get the menu
+     *
+     * @return int
+     */
+    public function menu()
+    {
+        $cachedKey = $this->cachedMenuKey();
+
+        return Cache::tags('role_users')->remember($cachedKey, config('session.lifetime'), function () {
+
+            // 获取该角色拥有的权限id，及所属模块id
+            $permissions = $this->cachedRole()->permissions();
+            $permissionIds = $permissions->pluck('id');
+            $moduleIds = $permissions->distinct()->pluck('module_id');
+
+            // 查询指定的可见permission
+            $permissionQuery = function ($query) use ($permissionIds) {
+                $query->where('is_visible', 1)->whereIn('id', $permissionIds);
+            };
+
+            // 查询指定的module
+            $modulesQuery = function ($query) use ($moduleIds) {
+                $query->whereIn('id', $moduleIds);
+            };
+
+            // 获取该角色可访问并且可见的权限菜单
+            $group = config('entrance.group');
+            $groups = $group::whereHas('modules.permissions', $permissionQuery)
+                ->with(['modules' => $modulesQuery, 'modules.permissions' => $permissionQuery])
+                ->get();
+
+            return $groups;
         });
     }
 

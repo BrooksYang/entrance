@@ -2,6 +2,7 @@
 
 namespace BrooksYang\Entrance;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class EntranceAdminServiceProvider extends ServiceProvider
@@ -23,6 +24,9 @@ class EntranceAdminServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../Admin/assets' => public_path('assets')
         ], 'public');
+
+        // Validation Rules
+        $this->validatorRules();
     }
 
     /**
@@ -33,5 +37,20 @@ class EntranceAdminServiceProvider extends ServiceProvider
     public function register()
     {
         //
+    }
+
+    /**
+     * Validation Rules
+     */
+    public function validatorRules()
+    {
+        Validator::extend('permission', function($attribute, $value, $parameters, $validator) {
+            $method = $parameters[0];
+            $uri = $parameters[1];
+            $id = $parameters[2];
+            $permission = config('entrance.permission');
+
+            return !$permission::where(['method' => $method, 'uri' => $uri])->where('id', '<>', $id)->exists();
+        }, '该权限已存在');
     }
 }
