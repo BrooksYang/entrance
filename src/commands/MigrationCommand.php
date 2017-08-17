@@ -32,11 +32,12 @@ class MigrationCommand extends Command
         $rolesTable          = config('entrance.roles_table');
         $permissionsTable    = config('entrance.permissions_table');
         $permissionRoleTable = config('entrance.permission_role_table');
-        $modulesTable          = config('entrance.modules_table');
+        $modulesTable        = config('entrance.modules_table');
+        $groupsTable         = config('entrance.groups_table');
 
-        $this->info("Tables: $rolesTable, $permissionsTable, $permissionRoleTable, $modulesTable");
+        $this->info("Tables: $rolesTable, $permissionsTable, $permissionRoleTable, $modulesTable, $groupsTable");
 
-        $message = "A migration that creates '$rolesTable', '$permissionsTable', '$permissionRoleTable', '$modulesTable'" .
+        $message = "A migration that creates '$rolesTable', '$permissionsTable', '$permissionRoleTable', '$modulesTable', '$groupsTable'" .
             " tables will be created in database/migrations directory";
 
         $this->comment($message);
@@ -47,7 +48,7 @@ class MigrationCommand extends Command
             $this->line('');
 
             $this->info("Creating migration...");
-            if ($this->createMigration($rolesTable, $permissionsTable, $permissionRoleTable, $modulesTable)) {
+            if ($this->createMigration($rolesTable, $permissionsTable, $permissionRoleTable, $modulesTable, $groupsTable)) {
 
                 $this->info("Migration successfully created!");
             } else {
@@ -68,9 +69,10 @@ class MigrationCommand extends Command
      * @param $permissionsTable
      * @param $permissionRoleTable
      * @param $modulesTable
+     * @param $groupsTable
      * @return bool
      */
-    protected function createMigration($rolesTable, $permissionsTable, $permissionRoleTable, $modulesTable)
+    protected function createMigration($rolesTable, $permissionsTable, $permissionRoleTable, $modulesTable, $groupsTable)
     {
         $migrationFile = base_path("/database/migrations")."/".date('Y_m_d_His')."_entrance_setup_tables.php";
 
@@ -78,7 +80,7 @@ class MigrationCommand extends Command
         $userModel = new $userModel;
         $usersTable  = $userModel->getTable();
 
-        $data = compact('rolesTable', 'permissionsTable', 'permissionRoleTable', 'modulesTable', 'usersTable');
+        $data = compact('rolesTable', 'permissionsTable', 'permissionRoleTable', 'modulesTable', 'groupsTable', 'usersTable');
 
         $output = $this->laravel->view->make('entrance::generators.migration')->with($data)->render();
 

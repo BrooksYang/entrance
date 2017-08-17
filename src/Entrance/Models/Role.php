@@ -4,11 +4,12 @@ namespace BrooksYang\Entrance\Models;
 
 use BrooksYang\Entrance\Contracts\RoleInterface;
 use BrooksYang\Entrance\Traits\EntranceRoleTrait;
+use BrooksYang\Entrance\Traits\KeywordSearchTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model implements RoleInterface
 {
-    use EntranceRoleTrait;
+    use EntranceRoleTrait, KeywordSearchTrait;
 
     /**
      * The database table used by the model.

@@ -2,14 +2,13 @@
 
 namespace BrooksYang\Entrance\Models;
 
-use BrooksYang\Entrance\Contracts\ModuleInterface;
-use BrooksYang\Entrance\Traits\EntranceModuleTrait;
+use BrooksYang\Entrance\Traits\EntranceGroupTrait;
 use BrooksYang\Entrance\Traits\KeywordSearchTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Module extends Model implements ModuleInterface
+class Group extends Model
 {
-    use EntranceModuleTrait, KeywordSearchTrait;
+    use EntranceGroupTrait, KeywordSearchTrait;
 
     /**
      * The database table used by the model.
@@ -26,6 +25,6 @@ class Module extends Model implements ModuleInterface
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('entrance.modules_table');
+        $this->table = config('entrance.groups_table');
     }
 }

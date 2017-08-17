@@ -71,4 +71,14 @@ trait EntranceModuleTrait
     {
         return $this->hasMany(config('entrance.permission'));
     }
+
+    /**
+     * One-to-Many relations with the group model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function group()
+    {
+        return $this->belongsTo(config('entrance.group'));
+    }
 }

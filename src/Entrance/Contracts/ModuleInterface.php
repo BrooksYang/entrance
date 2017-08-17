@@ -10,4 +10,11 @@ interface ModuleInterface
      * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
     public function permissions();
+
+    /**
+     * One-to-Many relations with group model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function group();
 }

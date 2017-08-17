@@ -86,4 +86,25 @@ return [
     |
     */
     'modules_table' => 'auth_modules',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Entrance Groups Model
+    |--------------------------------------------------------------------------
+    |
+    | This is the Group model used by Entrance to create correct relations.  Update
+    | the group if it is in a different namespace.
+    |
+    */
+    'group' => 'BrooksYang\Entrance\Models\Group',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Entrance Groups Table
+    |--------------------------------------------------------------------------
+    |
+    | This is the groups table used by Entrance to save groups to the database.
+    |
+    */
+    'groups_table' => 'auth_groups',
 ];
