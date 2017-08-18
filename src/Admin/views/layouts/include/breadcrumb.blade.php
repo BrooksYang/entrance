@@ -7,17 +7,15 @@
         <li>
             <a href="/"><span></span>dashboard</a>
         </li>
-        @if ($breadcrumb = @Auth::user()->breadcrumbs())
-            <li>
-                <a href="javascript:;">{{ @$breadcrumb->module->group->name }}</a>
-            </li>
-            <li>
-                <a href="javascript:;">{{ @$breadcrumb->module->name }}</a>
-            </li>
-            <li>
-                <a href="{{ url(Request::path()) }}">{{ @$breadcrumb->name }}</a>
-            </li>
-        @endif
+        <li>
+            <a href="javascript:;">{{ @$breadcrumb->module->group->name }}</a>
+        </li>
+        <li>
+            <a href="javascript:;">{{ @$breadcrumb->module->name }}</a>
+        </li>
+        <li>
+            <a href="{{ url(Request::path()) }}">{{ @$breadcrumb->name }}</a>
+        </li>
     </ol>
 
     {{-- Search --}}

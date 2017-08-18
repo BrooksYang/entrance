@@ -3,6 +3,7 @@
 namespace BrooksYang\Entrance;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class EntranceAdminServiceProvider extends ServiceProvider
@@ -24,6 +25,11 @@ class EntranceAdminServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../Admin/assets' => public_path('assets')
         ], 'public');
+
+        // Breadcrumb View Share
+        View::composer(['entrance::layouts.include.breadcrumb', 'entrance::layouts.include.side_menu'], function ($view) {
+            $view->with('breadcrumb', \Auth::user()->breadcrumb());
+        });
 
         // Validation Rules
         $this->validatorRules();

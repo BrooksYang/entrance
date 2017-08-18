@@ -84,11 +84,11 @@ trait EntranceUserTrait
     }
 
     /**
-     * Get the breadcrumbs
+     * Get the breadcrumb
      *
      * @return mixed
      */
-    public function breadcrumbs()
+    public function breadcrumb()
     {
         $method = \Request::method();
         $uri = \Request::route()->uri();
