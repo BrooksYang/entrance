@@ -16,6 +16,7 @@ trait EntrancePermissionTrait
     {
         $result = parent::save($options);
         Cache::tags('role_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -30,6 +31,7 @@ trait EntrancePermissionTrait
     {
         $result = parent::delete($options);
         Cache::tags('role_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -43,6 +45,7 @@ trait EntrancePermissionTrait
     {
         $result = parent::restore();
         Cache::tags('role_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
