@@ -150,5 +150,6 @@ trait EntranceRoleTrait
         }
 
         Cache::tags('role_permissions')->flush();
+        Cache::tags('role_users')->flush();
     }
 }

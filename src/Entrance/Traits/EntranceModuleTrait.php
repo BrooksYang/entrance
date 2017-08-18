@@ -31,6 +31,7 @@ trait EntranceModuleTrait
     {
         $result = parent::save($options);
         Cache::tags('module_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -45,6 +46,7 @@ trait EntranceModuleTrait
     {
         $result = parent::delete($options);
         Cache::tags('module_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -58,6 +60,7 @@ trait EntranceModuleTrait
     {
         $result = parent::restore();
         Cache::tags('module_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
