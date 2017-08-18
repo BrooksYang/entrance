@@ -47,15 +47,15 @@ trait EntranceUserTrait
     }
 
     /**
-     * Get the menu
+     * Get the menus
      *
      * @return int
      */
-    public function menu()
+    public function menus()
     {
         $cachedKey = $this->cachedMenuKey();
 
-        return Cache::tags('role_users')->remember($cachedKey, config('session.lifetime'), function () {
+        return Cache::tags('user_menus')->remember($cachedKey, config('session.lifetime'), function () {
 
             // 获取该角色拥有的权限id，及所属模块id
             $permissions = $this->cachedRole()->permissions();
@@ -76,10 +76,25 @@ trait EntranceUserTrait
             $group = config('entrance.group');
             $groups = $group::whereHas('modules.permissions', $permissionQuery)
                 ->with(['modules' => $modulesQuery, 'modules.permissions' => $permissionQuery])
+                ->orderBy('order')
                 ->get();
 
             return $groups;
         });
+    }
+
+    /**
+     * Get the breadcrumbs
+     *
+     * @return mixed
+     */
+    public function breadcrumbs()
+    {
+        $method = \Request::method();
+        $uri = \Request::route()->uri();
+        $permission = config('entrance.permission');
+
+        return $permission::with('module.group')->where(['method' => $method, 'uri' => $uri])->first();
     }
 
     /**
