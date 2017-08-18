@@ -35,7 +35,7 @@ class EntrancePermission
         // Check if the user has permission by the request method and uri.
         if ($this->auth->guest() || !$request->user()->hasPermission($method, $uri)) {
             if ($request->ajax()) {
-                return response()->json(['code' => 403, 'msg' => 'Forbidden']);
+                return response()->json(['code' => 403, 'error' => 'Permission Denied']);
             }
 
             return redirect()->intended(config('redirect_to'));
