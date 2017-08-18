@@ -50,12 +50,17 @@
                                 </tr>
                             @endforeach
                         </table>
-                    </div>
-                </div>
 
-                {{-- Paginaton --}}
-                <div class="pull-right">
-                    {{ $modules->appends(Request::except('page'))->links() }}
+                        {{-- Paginaton --}}
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="pull-right">
+                                    {{ $modules->appends(Request::except('page'))->links() }}
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Paginaton End --}}
+                    </div>
                 </div>
             </div>
         </div>
