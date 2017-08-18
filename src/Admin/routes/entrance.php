@@ -23,4 +23,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['web', 'auth', 'permission'],
     // Assign Permissions
     Route::post('roles/{role}/permissions', 'RoleController@permissionsSync');
 
+    // Users
+    Route::resource('users', 'UserController');
+
 });
