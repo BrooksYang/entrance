@@ -107,6 +107,7 @@ trait EntranceUserTrait
     {
         $result = parent::save($options);
         Cache::tags('role_users')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -121,6 +122,7 @@ trait EntranceUserTrait
     {
         $result = parent::delete($options);
         Cache::tags('role_users')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -134,6 +136,7 @@ trait EntranceUserTrait
     {
         $result = parent::restore();
         Cache::tags('role_users')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
