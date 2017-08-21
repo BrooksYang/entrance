@@ -39,77 +39,10 @@
         <div id="status">&nbsp;</div>
     </div>
 
-    @include('entrance::layouts.include.top_nav')
     <!-- Container -->
-    <div class="container-fluid paper-wrap bevel tlbr">
-        <div id="paper-top">
-            <div class="row">
-                <div class="col-sm-3 no-pad">
+    @section('content')
 
-                    <a class="navbar-brand logo-text" href="#">{{ config('app.name', 'Laravel') }}</a>
-
-                    <ul class="list-unstyled list-inline noft-btn">
-                        <li data-toggle="tooltip" data-placement="bottom" title="Profile"><i class=" icon-user"></i>
-                        </li>
-
-                        <li data-toggle="tooltip" data-placement="bottom" title="Log Out">
-                            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  class="text-white"><i class="icon-upload"></i></a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-                @include('entrance::layouts.include.message')
-                <!-- 注释掉消息提醒区域 -->
-{{--                 @include('layouts.include.menu_right')--}}
-                <!-- end of menu right -->
-            </div>
-        </div>
-        <!-- SIDE MENU -->
-
-        <div class="wrap-sidebar-content">
-
-            @include('entrance::layouts.include.side_menu')
-            @include('entrance::layouts.include.breadcrumb')
-
-            <!-- CONTENT -->
-            <div class="wrap-fluid" id="paper-bg">
-                @section('content')
-
-                @show
-            </div>
-            <!-- #/paper bg -->
-        </div>
-        <!-- ./wrap-sidebar-content -->
-
-        <!-- / END OF CONTENT -->
-
-        <!-- FOOTER -->
-        <div id="footer">
-            <div class="devider-footer-left"></div>
-            <div class="time">
-                <p id="spanDate"></p>
-                <p id="clock"></p>
-            </div>
-            <div class="copyright">Copyright &copy; 2014
-                <a href="http://ndesaintheme.com/">
-                    {{ config('app.copyright', 'Laravel') }}
-                </a> Made with
-                <i class="fontello-heart-filled text-red"></i>
-            </div>
-            <div class="devider-footer"></div>
-            <ul>
-                <li><i class="fa fa-facebook-square"></i>
-                </li>
-                <li><i class="fa fa-twitter-square"></i>
-                </li>
-                <li><i class="fa fa-instagram"></i>
-                </li>
-            </ul>
-        </div>
-        <!-- / FOOTER -->
-    </div>
+    @show
     <!-- Container -->
 
     <!--
