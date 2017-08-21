@@ -75,7 +75,8 @@ trait EntranceUserTrait
             // 获取该角色可访问并且可见的权限菜单
             $group = config('entrance.group');
             $groups = $group::whereHas('modules.permissions', $permissionQuery)
-                ->with(['modules' => $modulesQuery, 'modules.permissions' => $permissionQuery])
+                ->orWhereHas('permissions')
+                ->with(['modules' => $modulesQuery, 'modules.permissions' => $permissionQuery, 'permissions'])
                 ->orderBy('order')
                 ->get();
 
@@ -94,7 +95,7 @@ trait EntranceUserTrait
         $uri = \Request::route()->uri();
         $permission = config('entrance.permission');
 
-        return $permission::with('module.group')->where(['method' => $method, 'uri' => $uri])->first();
+        return $permission::with(['module.group', 'group'])->where(['method' => $method, 'uri' => $uri])->first();
     }
 
     /**
