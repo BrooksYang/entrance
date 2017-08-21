@@ -2,6 +2,7 @@
 
 namespace BrooksYang\Entrance\Controllers;
 
+use BrooksYang\Entrance\Models\Group;
 use BrooksYang\Entrance\Models\Module;
 use BrooksYang\Entrance\Models\Role;
 use BrooksYang\Entrance\Requests\RoleRequest;
@@ -122,10 +123,13 @@ class RoleController extends Controller
         // 按模块获取权限
         $modules = Module::with('permissions')->get();
 
+        // 按板块获取权限
+        $groups = Group::with('permissions')->get();
+
         // 获取当前角色拥有的权限id
         $permissionIds = Role::find($roleId)->permissions()->pluck('id')->toArray();
 
-        return view('entrance::entrance.role.permissions', compact('roleId', 'modules', 'permissionIds'));
+        return view('entrance::entrance.role.permissions', compact('roleId', 'modules', 'groups', 'permissionIds'));
     }
 
     /**

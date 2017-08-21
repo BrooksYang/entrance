@@ -31,7 +31,7 @@
                         {{-- Icon --}}
                         <div class="form-group {{ $errors->has('icon') ? 'has-error' : '' }}">
                             <div class="col-sm-12">
-                                <input class="form-control input-lg" type="text" name="icon" value="{{ old('icon') ?? 'fa fa-sun-o' }}"
+                                <input class="form-control input-lg" type="text" name="icon" value="{{ @$module->icon ?: old('icon') ?: 'fa fa-sun-o' }}"
                                        placeholder="菜单图标">
                                 @if ($errors->has('icon'))
                                     <span class="help-block"><strong>{{ $errors->first('icon') }}</strong></span>

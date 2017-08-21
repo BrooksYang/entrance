@@ -27,6 +27,7 @@
                                 <th>标题</th>
                                 <th>描述</th>
                                 <th>模块</th>
+                                <th>板块</th>
                                 <th>请求方法</th>
                                 <th>URI</th>
                                 <th>是否可见</th>
@@ -38,6 +39,7 @@
                                     <td><strong>{{ $item->name }}</strong></td>
                                     <td>{{ $item->description }}</td>
                                     <td>{{ @$item->module->name }}</td>
+                                    <td>{{ @$item->group->name ?: @$item->module->group->name }}</td>
                                     <td>
                                         @if ($item->method == 'GET')
                                             <span class="label label-primary">{{ $item->method }}</span>

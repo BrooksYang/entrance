@@ -9,18 +9,6 @@
             <div id="tree-wrap">
                 <div class="side-bar">
                     <ul id="menu-showhide" class="topnav">
-                        {{-- Dashboard --}}
-                        <li class="devider-title">
-                            <h3>
-                                <span>Dashboard</span>
-                            </h3>
-                        </li>
-                        <li>
-                            <a href="{{ url('') }}" title="Dashboard">
-                                <i class="fa fa-tachometer"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
 
                         {{-- Groups --}}
                         @foreach (Auth::user()->menus() as $group)
@@ -29,6 +17,16 @@
                                     <span>{{ $group->name }}</span>
                                 </h3>
                             </li>
+
+                            {{-- Permissions related to Groups --}}
+                            @foreach ( $group->permissions as $permission)
+                                <li>
+                                    <a href="{{ url($permission->uri) }}" title="Dashboard">
+                                        <i class="{{ $permission->icon }}"></i>
+                                        <span>{{ $permission->name }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
 
                             {{-- Modules --}}
                             @foreach ($group->modules as $module)
