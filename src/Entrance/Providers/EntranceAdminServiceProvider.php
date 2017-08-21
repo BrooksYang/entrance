@@ -36,6 +36,11 @@ class EntranceAdminServiceProvider extends ServiceProvider
             __DIR__ . '/../../Admin/assets' => public_path('assets'),
         ], 'entrance');
 
+        // Publish Views
+        $this->publishes([
+            __DIR__.'/../../Admin/views' => resource_path('views/vendor/entrance'),
+        ], 'entrance.views');
+
         // Breadcrumb View Share
         View::composer(['entrance::layouts.include.breadcrumb', 'entrance::layouts.include.side_menu'], function ($view) {
             $view->with('breadcrumb', \Auth::user()->breadcrumb());
