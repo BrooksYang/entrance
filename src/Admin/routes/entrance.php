@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'auth', 'middleware' => ['web', 'auth', 'permission'], 'namespace' => 'BrooksYang\Entrance\Controllers'], function () {
+Route::group(['prefix' => 'auth', 'middleware' => ['web', 'auth', 'entrance'], 'namespace' => 'BrooksYang\Entrance\Controllers'], function () {
 
     // Groups
     Route::resource('groups', 'GroupController');

@@ -2,12 +2,22 @@
 
 namespace BrooksYang\Entrance;
 
+use BrooksYang\Entrance\Middleware\EntrancePermission;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class EntranceAdminServiceProvider extends ServiceProvider
 {
+    /**
+     * The application's route middleware.
+     *
+     * @var array
+     */
+    protected $routeMiddleware = [
+        'entrance' => EntrancePermission::class,
+    ];
+
     /**
      * Bootstrap the application services.
      *
@@ -23,8 +33,8 @@ class EntranceAdminServiceProvider extends ServiceProvider
 
         // Publish assets
         $this->publishes([
-            __DIR__ . '/../../Admin/assets' => public_path('assets')
-        ], 'public');
+            __DIR__ . '/../../Admin/assets' => public_path('assets'),
+        ], 'entrance');
 
         // Breadcrumb View Share
         View::composer(['entrance::layouts.include.breadcrumb', 'entrance::layouts.include.side_menu'], function ($view) {
@@ -42,7 +52,10 @@ class EntranceAdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // register route middleware.
+        foreach ($this->routeMiddleware as $key => $middleware) {
+            app('router')->aliasMiddleware($key, $middleware);
+        }
     }
 
     /**
@@ -50,7 +63,7 @@ class EntranceAdminServiceProvider extends ServiceProvider
      */
     public function validatorRules()
     {
-        Validator::extend('permission', function($attribute, $value, $parameters, $validator) {
+        Validator::extend('permission', function ($attribute, $value, $parameters, $validator) {
             $method = $parameters[0];
             $uri = $parameters[1];
             $id = $parameters[2];
