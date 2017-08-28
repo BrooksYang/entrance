@@ -2,6 +2,7 @@
 
 namespace BrooksYang\Entrance;
 
+use BrooksYang\Entrance\Commands\InstallCommand;
 use Illuminate\Support\ServiceProvider;
 
 class EntranceServiceProvider extends ServiceProvider
@@ -39,7 +40,7 @@ class EntranceServiceProvider extends ServiceProvider
 
         // Register the artisan commands.
         $this->app->singleton('entrance.migration', function () {
-            return new MigrationCommand();
+            return new InstallCommand();
         });
     }
 }

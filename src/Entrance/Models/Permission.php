@@ -19,6 +19,15 @@ class Permission extends Model implements PermissionInterface
     protected $table;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'description', 'method', 'uri', 'module_id', 'icon', 'is_visible',
+    ];
+
+    /**
      * Creates a new instance of the model.
      *
      * @param array $attributes

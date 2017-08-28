@@ -19,6 +19,15 @@ class Module extends Model implements ModuleInterface
     protected $table;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'description', 'icon',
+    ];
+
+    /**
      * Creates a new instance of the model.
      *
      * @param array $attributes

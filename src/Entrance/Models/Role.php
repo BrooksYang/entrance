@@ -19,6 +19,15 @@ class Role extends Model implements RoleInterface
     protected $table;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'description',
+    ];
+
+    /**
      * Creates a new instance of the model.
      *
      * @param array $attributes
