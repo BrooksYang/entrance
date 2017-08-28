@@ -24,7 +24,7 @@ class Permission extends Model implements PermissionInterface
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'method', 'uri', 'module_id', 'icon', 'is_visible',
+        'name', 'description', 'method', 'uri', 'module_id', 'group_id', 'icon', 'is_visible',
     ];
 
     /**

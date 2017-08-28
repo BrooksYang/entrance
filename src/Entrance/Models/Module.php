@@ -24,7 +24,7 @@ class Module extends Model implements ModuleInterface
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'icon',
+        'name', 'description', 'icon', 'group_id',
     ];
 
     /**

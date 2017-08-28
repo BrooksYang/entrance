@@ -27,7 +27,8 @@ class CreateEntranceTables extends Migration
             $table->string('description')->nullable()->comment('A more detailed explanation of the Permission.');
             $table->string('method');
             $table->string('uri');
-            $table->integer('module_id')->unsigned()->default(1);
+            $table->integer('module_id')->unsigned()->default(0);
+            $table->integer('group_id')->nullable()->default(0);
             $table->string('icon', 64)->nullable();
             $table->boolean('is_visible')->default(1)->comment('is visible in module, 0not 1yes');
             $table->timestamps();
@@ -47,6 +48,15 @@ class CreateEntranceTables extends Migration
             $table->string('description')->nullable()->comment('A more detailed explanation of the module.');
             $table->string('icon');
             $table->integer('group_id');
+            $table->timestamps();
+        });
+
+        // Create table for storing modules
+        Schema::create(config('entrance.groups_table'), function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->unique()->comment('group name');
+            $table->string('description')->nullable()->comment('A more detailed explanation of the group.');
+            $table->integer('order')->unsigned()->nullable()->comment('The order of the group');
             $table->timestamps();
         });
 
@@ -72,5 +82,6 @@ class CreateEntranceTables extends Migration
         Schema::dropIfExists(config('entrance.permissions_table'));
         Schema::dropIfExists(config('entrance.roles_table'));
         Schema::dropIfExists(config('entrance.modules_table'));
+        Schema::dropIfExists(config('entrance.groups_table'));
     }
 }

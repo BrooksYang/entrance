@@ -18,6 +18,15 @@ class Group extends Model
     protected $table;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'description', 'order',
+    ];
+
+    /**
      * Creates a new instance of the model.
      *
      * @param array $attributes
