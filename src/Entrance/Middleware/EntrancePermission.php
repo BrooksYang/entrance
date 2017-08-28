@@ -38,7 +38,7 @@ class EntrancePermission
                 return response()->json(['code' => 403, 'error' => 'Permission Denied']);
             }
 
-            return redirect()->intended(config('redirect_to'));
+            abort(403, 'Permission Denied');
         }
 
         return $next($request);
