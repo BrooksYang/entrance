@@ -31,6 +31,7 @@
                                 <th>请求方法</th>
                                 <th>URI</th>
                                 <th>是否可见</th>
+                                <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
                             @foreach($permissions as $key => $item)
@@ -59,6 +60,7 @@
                                             <span class="label label-danger">否</span>
                                         @endif
                                     </td>
+                                    <td>{{ $item->created_at }}</td>
                                     <td>
                                         <a href="{{ url("auth/permissions/$item->id/edit") }}">
                                             <i class="fontello-edit" title="编辑"></i>

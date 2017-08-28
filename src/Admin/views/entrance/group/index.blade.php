@@ -27,6 +27,8 @@
                                 <th>标题</th>
                                 <th>描述</th>
                                 <th>排序</th>
+                                <th>创建时间</th>
+                                <th>更新时间</th>
                                 <th>操作</th>
                             </tr>
                             @foreach($groups as $key => $item)
@@ -35,6 +37,8 @@
                                     <td><strong>{{ $item->name }}</strong></td>
                                     <td>{{ $item->description }}</td>
                                     <td>{{ $item->order }}</td>
+                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->updated_at }}</td>
                                     <td>
                                         {{-- Edit --}}
                                         <a href="{{ url("auth/groups/$item->id/edit") }}">

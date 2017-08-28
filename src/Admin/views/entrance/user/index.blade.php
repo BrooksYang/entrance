@@ -27,6 +27,8 @@
                                 <th>用户名</th>
                                 <th>邮箱</th>
                                 <th>角色</th>
+                                <th>创建时间</th>
+                                <th>更新时间</th>
                                 <th>操作</th>
                             </tr>
                             @foreach($users as $key => $item)
@@ -35,6 +37,8 @@
                                     <td><strong>{{ $item->name }}</strong></td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ @$item->role->name }}</td>
+                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->updated_at }}</td>
                                     <td>
                                         {{-- Edit --}}
                                         <a href="{{ url("auth/users/$item->id/edit") }}">

@@ -28,6 +28,8 @@
                                 <th>图标</th>
                                 <th>板块</th>
                                 <th>描述</th>
+                                <th>创建时间</th>
+                                <th>更新时间</th>
                                 <th>操作</th>
                             </tr>
                             @foreach($modules as $key => $item)
@@ -37,6 +39,8 @@
                                     <td><i class="{{ $item->icon }}" title="{{ $item->icon }}"></i></td>
                                     <td>{{ @$item->group->name }}</td>
                                     <td>{{ $item->description }}</td>
+                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->updated_at }}</td>
                                     <td>
                                         <a href="{{ url("auth/modules/$item->id/edit") }}">
                                             <i class="fontello-edit" title="编辑"></i>
