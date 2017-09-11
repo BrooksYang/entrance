@@ -32,7 +32,7 @@ class User extends Authenticatable
 php artisan vendor:publish --tag=entrance
 ```
 
-开始使用
+### 开始使用
 
 config/entrance.php中默认定义了一些配置项，如：无权限页面的跳转路径，model等，若想自定义model，修改配置文件之后，需要继承原model，如自定义Role.php文件，需要以下步骤：
 ```php
