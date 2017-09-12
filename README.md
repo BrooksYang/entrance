@@ -1,3 +1,16 @@
+# Demo
+http://45.32.35.75:9001/
+```php
+// 超管
+用户名：admin@admin.com
+密码：123123
+
+ 
+// test 账号
+用户名：test@test.com
+密码：123123
+```
+
 # v1 版本
 
 安装
@@ -107,29 +120,17 @@ php artisan entrance:install
 ```
 
 配置好项目地址之后，访问demo即可，如：http://localhost/demo
-```php
-// 超管
-用户名：admin@admin.com
-密码：123123
-
- 
-// test 账号
-用户名：test@test.com
-密码：123123
-```
 
 ### TODO LISTS
 ```php
-实现model自定义功能
-模块排序
-模块图标
-操作日志
-数据库备份
-多语言支持
-异常邮件通知(参考laravel5.5异常界面)
-默认头像选择
-路由文件不在vendor中写死，采用类似Auth::routes()的方式写入本地路由文件，定制化程度更高
-docker化
-github协同
-
+1.实现model自定义功能
+2.模块排序
+3.模块图标
+4.操作日志
+5.数据库备份
+6.多语言支持
+7.异常邮件通知(参考laravel5.5异常界面)
+8.默认头像选择
+9.路由文件不在vendor中写死，采用类似Auth::routes()的方式写入本地路由文件，定制化程度更高
+10.ocker化
 ```
