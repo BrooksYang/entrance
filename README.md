@@ -117,3 +117,16 @@ php artisan entrance:install
 用户名：test@test.com
 密码：123123
 ```
+
+### TODO LISTS
+实现model自定义功能
+模块排序
+模块图标
+操作日志
+数据库备份
+多语言支持
+异常邮件通知(参考laravel5.5异常界面)
+默认头像选择
+路由文件不在vendor中写死，采用类似Auth::routes()的方式写入本地路由文件，定制化程度更高
+docker化
+github协同
