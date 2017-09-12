@@ -132,5 +132,5 @@ php artisan entrance:install
 7.异常邮件通知(参考laravel5.5异常界面)
 8.默认头像选择
 9.路由文件不在vendor中写死，采用类似Auth::routes()的方式写入本地路由文件，定制化程度更高
-10.ocker化
+10.docker化
 ```
