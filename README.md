@@ -1,4 +1,4 @@
-# Demo
+# v2 Demo
 http://45.32.35.75:9001/
 ```php
 // 超管
@@ -11,7 +11,7 @@ http://45.32.35.75:9001/
 密码：123123
 ```
 
-# v1 版本
+# v1 版本（master分支）
 
 安装
 ```php
@@ -71,7 +71,7 @@ class Role extends \BrooksYang\Entrance\Models\Role
 
 其它model的自定义同上
 
-# v2 版本
+# v2 版本（admin分支）
 
 安装
 ```php
