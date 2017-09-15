@@ -10,11 +10,23 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.5.9"
+        "php": ">=7.0",
+        "laravel/framework": ">=5.5"
     },
     "autoload": {
         "psr-0": {
             "BrooksYang\\Entrance\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BrooksYang\\Entrance\\EntranceServiceProvider",
+                "BrooksYang\\Entrance\\EntranceAdminServiceProvider"
+            ],
+            "aliases": {
+                "Entrance": "BrooksYang\\Entrance\\Facades\\Entrance"
+            }
         }
     }
 }
