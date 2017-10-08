@@ -31,6 +31,10 @@
     <!-- pace loader -->
     <script src="{{ url('vendor/entrance/js/pace/pace.js') }}"></script>
     <link href="{{ url('vendor/entrance/js/pace/themes/orange/pace-theme-flash.css') }}" rel="stylesheet" />
+
+    @section('css-part')
+
+    @show
 </head>
 
 <body role="document">
