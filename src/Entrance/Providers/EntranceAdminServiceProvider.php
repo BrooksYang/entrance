@@ -33,7 +33,7 @@ class EntranceAdminServiceProvider extends ServiceProvider
 
         // Publish assets
         $this->publishes([
-            __DIR__ . '/../../Admin/assets' => public_path('assets'),
+            __DIR__ . '/../../Admin/assets' => public_path('vendor/entrance'),
         ], 'entrance');
 
         // Publish Views

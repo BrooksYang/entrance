@@ -12,25 +12,25 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{{ url('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url('vendor/entrance/css/bootstrap.css') }}">
     <!-- Bootstrap theme -->
-    <!--  <link rel="stylesheet" href="{{ url('assets') }}/css/bootstrap-theme.min.css"> -->
+    <!--  <link rel="stylesheet" href="{{ url('vendor/entrance') }}/css/bootstrap-theme.min.css"> -->
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="{{ url('assets/css/theme.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/css/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/css/dripicon.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/css/typicons.css') }}" />
-    <link rel="stylesheet" href="{{ url('assets/css/font-awesome.css') }}" />
-    <link rel="stylesheet" href="{{ url('assets/css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/js/tip/tooltipster.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url('assets/js/vegas/jquery.vegas.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ url('assets/js/number-progress-bar/number-pb.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/js/layer/skin/default/layer.css') }}">
+    <link rel="stylesheet" href="{{ url('vendor/entrance/css/theme.css') }}">
+    <link rel="stylesheet" href="{{ url('vendor/entrance/css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url('vendor/entrance/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url('vendor/entrance/css/dripicon.css') }}">
+    <link rel="stylesheet" href="{{ url('vendor/entrance/css/typicons.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendor/entrance/css/font-awesome.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendor/entrance/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url('vendor/entrance/js/tip/tooltipster.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('vendor/entrance/js/vegas/jquery.vegas.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('vendor/entrance/js/number-progress-bar/number-pb.css') }}">
+    <link rel="stylesheet" href="{{ url('vendor/entrance/js/layer/skin/default/layer.css') }}">
     <!-- pace loader -->
-    <script src="{{ url('assets/js/pace/pace.js') }}"></script>
-    <link href="{{ url('assets/js/pace/themes/orange/pace-theme-flash.css') }}" rel="stylesheet" />
+    <script src="{{ url('vendor/entrance/js/pace/pace.js') }}"></script>
+    <link href="{{ url('vendor/entrance/js/pace/themes/orange/pace-theme-flash.css') }}" rel="stylesheet" />
 </head>
 
 <body role="document">
@@ -48,48 +48,48 @@
     <!--
     ================================================== -->
     <!-- Main jQuery Plugins -->
-    <script type='text/javascript' src="{{ url('assets/js/jquery.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/jquery.js') }}"></script>
 
-    <script type='text/javascript' src="{{ url('assets/js/bootstrap.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/date.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/slimscroll/jquery.slimscroll.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/jquery.nicescroll.min.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/sliding-menu.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/scriptbreaker-multiple-accordion-1.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/tip/jquery.tooltipster.min.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/donut-chart/jquery.drawDoughnutChart.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/tab/jquery.newsTicker.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/tab/app.ticker.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/app.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/bootstrap.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/date.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/slimscroll/jquery.slimscroll.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/jquery.nicescroll.min.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/sliding-menu.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/scriptbreaker-multiple-accordion-1.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/tip/jquery.tooltipster.min.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/donut-chart/jquery.drawDoughnutChart.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/tab/jquery.newsTicker.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/tab/app.ticker.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/app.js') }}"></script>
 
 
-    <script type='text/javascript' src="{{ url('assets/js/vegas/jquery.vegas.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/image-background.js') }}"></script>
-    <script type="text/javascript" src="{{ url('assets/js/jquery.tabSlideOut.v1.3.js') }}"></script>
-    <script type="text/javascript" src="{{ url('assets/js/bg-changer.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/vegas/jquery.vegas.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/image-background.js') }}"></script>
+    <script type="text/javascript" src="{{ url('vendor/entrance/js/jquery.tabSlideOut.v1.3.js') }}"></script>
+    <script type="text/javascript" src="{{ url('vendor/entrance/js/bg-changer.js') }}"></script>
 
-    <script type='text/javascript' src="{{ url('assets/js/number-progress-bar/jquery.velocity.min.js') }}"></script>
-    <script type='text/javascript' src="{{ url('assets/js/number-progress-bar/number-pb.js') }}"></script>
-    <script src="{{ url('assets/js/loader/loader.js') }}" type="text/javascript"></script>
-    <script src="{{ url('assets/js/loader/demo.js') }}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{ url('assets/js/skycons/skycons.js') }}"></script>
-    <script type="text/javascript" src="{{ url('assets/js/layer/layer.js') }}"></script>
-    <script type="text/javascript" src="{{ url('assets/js/bootbox.min.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/number-progress-bar/jquery.velocity.min.js') }}"></script>
+    <script type='text/javascript' src="{{ url('vendor/entrance/js/number-progress-bar/number-pb.js') }}"></script>
+    <script src="{{ url('vendor/entrance/js/loader/loader.js') }}" type="text/javascript"></script>
+    <script src="{{ url('vendor/entrance/js/loader/demo.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ url('vendor/entrance/js/skycons/skycons.js') }}"></script>
+    <script type="text/javascript" src="{{ url('vendor/entrance/js/layer/layer.js') }}"></script>
+    <script type="text/javascript" src="{{ url('vendor/entrance/js/bootbox.min.js') }}"></script>
 
     <!-- FLOT CHARTS -->
-    <script src="{{ url('assets/js/flot/jquery.flot.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('vendor/entrance/js/flot/jquery.flot.min.js') }}" type="text/javascript"></script>
     <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
-    <script src="{{ url('assets/js/flot/jquery.flot.resize.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('vendor/entrance/js/flot/jquery.flot.resize.min.js') }}" type="text/javascript"></script>
     <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
-    <script src="{{ url('assets/js/flot/jquery.flot.pie.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('vendor/entrance/js/flot/jquery.flot.pie.min.js') }}" type="text/javascript"></script>
     <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
-    <script src="{{ url('assets/js/flot/jquery.flot.categories.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('vendor/entrance/js/flot/jquery.flot.categories.min.js') }}" type="text/javascript"></script>
     <!-- Page script -->
 
     <!-- TAB SLIDER -->
 
     {{-- custom Js--}}
-    <script src="{{ url('assets/js/custom.js') }}"></script>
+    <script src="{{ url('vendor/entrance/js/custom.js') }}"></script>
 
 
     <script>
