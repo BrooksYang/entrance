@@ -42,5 +42,10 @@ class EntranceServiceProvider extends ServiceProvider
         $this->app->singleton('entrance.migration', function () {
             return new InstallCommand();
         });
+
+        // Default Package Configuration
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config/entrance.php', 'entrance'
+        );
     }
 }
