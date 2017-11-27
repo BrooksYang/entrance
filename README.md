@@ -1,6 +1,5 @@
 # v2 Demo
-http://45.32.35.75:9001/
-##### demo服务器维护中，暂停访问
+[点击访问demo](http://entrance.brooksyang.cn/)
 ```php
 // 超管
 用户名：admin@admin.com
