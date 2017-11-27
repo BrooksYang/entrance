@@ -117,9 +117,6 @@ class User extends Authenticatable
 php artisan vendor:publish --tag=entrance
 ```
 
-###### 注意：v2.*版本仅支持自定义数据表等配置，暂不支持自定义model等配置项，后续优化版本中会完善自定义功能
-
-
 重写视图文件（可选，不执行该条命令，则使用默认视图）
 ```php
 php artisan vendor:publish --tag=entrance.views
