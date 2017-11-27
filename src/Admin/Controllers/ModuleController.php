@@ -2,8 +2,6 @@
 
 namespace BrooksYang\Entrance\Controllers;
 
-use BrooksYang\Entrance\Models\Group;
-use BrooksYang\Entrance\Models\Module;
 use BrooksYang\Entrance\Requests\ModuleRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,7 +17,8 @@ class ModuleController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('keyword');
-        $modules = Module::with('group')
+        $moduleModel = config('entrance.module');
+        $modules = $moduleModel::with('group')
             ->search($keyword)
             ->orderBy('id', 'desc')
             ->paginate();
@@ -34,7 +33,8 @@ class ModuleController extends Controller
      */
     public function create()
     {
-        $groups = Group::all();
+        $groupModel = config('entrance.group');
+        $groups = $groupModel::all();
 
         return view('entrance::entrance.module.create', compact('groups'));
     }
@@ -47,7 +47,9 @@ class ModuleController extends Controller
      */
     public function store(ModuleRequest $request)
     {
-        $module = new Module();
+        $moduleModel = config('entrance.module');
+
+        $module = new $moduleModel();
         $module->name = $request->get('name');
         $module->group_id = $request->get('group_id');
         $module->description = $request->get('description');
@@ -78,9 +80,11 @@ class ModuleController extends Controller
     {
         $editFlag = true;
 
-        $module = Module::findOrFail($id);
+        $moduleModel = config('entrance.module');
+        $module = $moduleModel::findOrFail($id);
 
-        $groups = Group::all();
+        $groupModel = config('entrance.group');
+        $groups = $groupModel::all();
 
         return view('entrance::entrance.module.create', compact('module', 'groups', 'editFlag'));
     }
@@ -94,7 +98,8 @@ class ModuleController extends Controller
      */
     public function update(ModuleRequest $request, $id)
     {
-        $module = Module::findOrFail($id);
+        $moduleModel = config('entrance.module');
+        $module = $moduleModel::findOrFail($id);
         $module->name = $request->get('name');
         $module->group_id = $request->get('group_id');
         $module->description = $request->get('description');
@@ -112,7 +117,8 @@ class ModuleController extends Controller
      */
     public function destroy($id)
     {
-        $module = Module::find($id);
+        $moduleModel = config('entrance.module');
+        $module = $moduleModel::find($id);
         if (empty($module)) {
             return response()->json(['code' => 1, 'error' => '该模块不存在']);
         }

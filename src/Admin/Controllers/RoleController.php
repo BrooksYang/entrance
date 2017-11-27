@@ -2,9 +2,6 @@
 
 namespace BrooksYang\Entrance\Controllers;
 
-use BrooksYang\Entrance\Models\Group;
-use BrooksYang\Entrance\Models\Module;
-use BrooksYang\Entrance\Models\Role;
 use BrooksYang\Entrance\Requests\RoleRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,7 +17,9 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('keyword');
-        $roles = Role::search($keyword)->paginate();
+
+        $roleModel = config('entrance.role');
+        $roles = $roleModel::search($keyword)->paginate();
 
         return view('entrance::entrance.role.index', compact('roles'));
     }
@@ -43,7 +42,8 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        $role = new Role();
+        $roleModel = config('entrance.role');
+        $role = new $roleModel();
         $role->name = $request->get('name');
         $role->description = $request->get('description');
         $role->save();
@@ -72,7 +72,8 @@ class RoleController extends Controller
     {
         $editFlag = true;
 
-        $role = Role::findOrFail($id);
+        $roleModel = config('entrance.role');
+        $role = $roleModel::findOrFail($id);
 
         return view('entrance::entrance.role.create', compact('role', 'editFlag'));
     }
@@ -86,7 +87,8 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, $id)
     {
-        $role = Role::findOrFail($id);
+        $roleModel = config('entrance.role');
+        $role = $roleModel::findOrFail($id);
         $role->name = $request->get('name');
         $role->description = $request->get('description');
         $role->save();
@@ -102,7 +104,8 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::find($id);
+        $roleModel = config('entrance.role');
+        $role = $roleModel::find($id);
         if (empty($role)) {
             return response()->json(['code' => 1, 'error' => '该角色不存在']);
         }
@@ -120,14 +123,18 @@ class RoleController extends Controller
      */
     public function permissions($roleId)
     {
+        $groupModel = config('entrance.group');
+        $moduleModel = config('entrance.module');
+        $roleModel = config('entrance.role');
+
         // 按模块获取权限
-        $modules = Module::with('permissions')->get();
+        $modules = $moduleModel::with('permissions')->get();
 
         // 按板块获取权限
-        $groups = Group::with('permissions')->get();
+        $groups = $groupModel::with('permissions')->get();
 
         // 获取当前角色拥有的权限id
-        $permissionIds = Role::find($roleId)->permissions()->pluck('id')->toArray();
+        $permissionIds = $roleModel::find($roleId)->permissions()->pluck('id')->toArray();
 
         return view('entrance::entrance.role.permissions', compact('roleId', 'modules', 'groups', 'permissionIds'));
     }
@@ -141,7 +148,8 @@ class RoleController extends Controller
      */
     public function permissionsSync(Request $request, $id)
     {
-        $role = Role::findOrFail($id);
+        $roleModel = config('entrance.role');
+        $role = $roleModel::findOrFail($id);
 
         $role->savePermissions($request->get('permissions'));
 

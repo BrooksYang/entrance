@@ -2,9 +2,6 @@
 
 namespace BrooksYang\Entrance\Controllers;
 
-use BrooksYang\Entrance\Models\Group;
-use BrooksYang\Entrance\Models\Module;
-use BrooksYang\Entrance\Models\Permission;
 use BrooksYang\Entrance\Requests\PermissionRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,8 +16,9 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
+        $permissionModel = config('entrance.permission');
         $keyword = $request->get('keyword');
-        $permissions = Permission::with(['module.group', 'group'])
+        $permissions = $permissionModel::with(['module.group', 'group'])
             ->search($keyword)
             ->orderBy('group_id', 'desc')
             ->orderBy('module_id', 'desc')
@@ -36,9 +34,13 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        $groups = Group::all();
-        $modules = Module::all();
-        $methods = Permission::$methods;
+        $groupModel = config('entrance.group');
+        $moduleModel = config('entrance.module');
+        $permissionModel = config('entrance.permission');
+
+        $groups = $groupModel::all();
+        $modules = $moduleModel::all();
+        $methods = $permissionModel::$methods;
 
         return view('entrance::entrance.permission.create', compact('groups', 'modules', 'methods'));
     }
@@ -52,7 +54,9 @@ class PermissionController extends Controller
     public function store(PermissionRequest $request)
     {
         $type = $request->get('type');
-        $permission = new Permission();
+
+        $permissionModel = config('entrance.permission');
+        $permission = new $permissionModel();
         $permission->name = $request->get('name');
         $permission->method = $request->get('method');
         $permission->uri = trim($request->get('uri'), '/');
@@ -87,11 +91,15 @@ class PermissionController extends Controller
     {
         $editFlag = true;
 
-        $permission = Permission::findOrFail($id);
+        $groupModel = config('entrance.group');
+        $moduleModel = config('entrance.module');
+        $permissionModel = config('entrance.permission');
 
-        $groups = Group::all();
-        $modules = Module::all();
-        $methods = Permission::$methods;
+        $permission = $permissionModel::findOrFail($id);
+
+        $groups = $groupModel::all();
+        $modules = $moduleModel::all();
+        $methods = $permissionModel::$methods;
 
         return view('entrance::entrance.permission.create', compact('permission', 'groups', 'modules', 'methods', 'editFlag'));
     }
@@ -106,7 +114,9 @@ class PermissionController extends Controller
     public function update(PermissionRequest $request, $id)
     {
         $type = $request->get('type');
-        $permission = Permission::findOrFail($id);
+
+        $permissionModel = config('entrance.permission');
+        $permission = $permissionModel::findOrFail($id);
         $permission->name = $request->get('name');
         $permission->method = $request->get('method');
         $permission->uri = trim($request->get('uri'), '/');
@@ -128,7 +138,8 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        $permission = Permission::find($id);
+        $permissionModel = config('entrance.permission');
+        $permission = $permissionModel::find($id);
         if (empty($permission)) {
             return response()->json(['code' => 1, 'error' => '该权限不存在']);
         }

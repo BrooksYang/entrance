@@ -12,6 +12,17 @@ class CreateEntranceTables extends Migration
      */
     public function up()
     {
+        // Create users table.
+        Schema::create(config('entrance.users_table'), function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->integer('role_id')->nullable()->comment('role_id');
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+
         // Create table for storing roles
         Schema::create(config('entrance.roles_table'), function (Blueprint $table) {
             $table->increments('id');
@@ -59,16 +70,6 @@ class CreateEntranceTables extends Migration
             $table->integer('order')->unsigned()->nullable()->comment('The order of the group');
             $table->timestamps();
         });
-
-        // add role_id to users table
-        $userModel = config('auth.providers.users.model');
-        $userModel = new $userModel;
-        $usersTable = $userModel->getTable();
-        Schema::table($usersTable, function (Blueprint $table) use ($usersTable) {
-            if (!Schema::hasColumn($usersTable, 'role_id')) {
-                $table->integer('role_id')->nullable()->comment('role_id');
-            }
-        });
     }
 
     /**
@@ -83,5 +84,6 @@ class CreateEntranceTables extends Migration
         Schema::dropIfExists(config('entrance.roles_table'));
         Schema::dropIfExists(config('entrance.modules_table'));
         Schema::dropIfExists(config('entrance.groups_table'));
+        Schema::dropIfExists(config('entrance.users_table'));
     }
 }

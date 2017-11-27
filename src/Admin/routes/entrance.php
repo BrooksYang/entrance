@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'auth', 'middleware' => ['web', 'auth', 'entrance'], 'namespace' => 'BrooksYang\Entrance\Controllers'], function () {
+Route::group(['prefix' => 'auth', 'middleware' => ['web', 'auth:admin', 'entrance'], 'namespace' => 'BrooksYang\Entrance\Controllers'], function () {
 
     // Groups
     Route::resource('groups', 'GroupController');
@@ -33,7 +33,7 @@ Route::group(['middleware' => ['web'], 'namespace' => 'BrooksYang\Entrance\Contr
     // Demo
     Route::get('demo', function () {
         return view('entrance::entrance.index');
-    })->middleware(['web', 'auth']);
+    })->middleware(['web', 'auth:admin']);
 
     // Authentication Routes...
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

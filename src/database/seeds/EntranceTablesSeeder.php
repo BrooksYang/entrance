@@ -518,7 +518,7 @@ class EntranceTablesSeeder extends Seeder
 
 
         // Create users
-        $user = config('auth.providers.users.model');
+        $user = config('auth.providers.admin.model');
         $user::truncate();
         $user::insert([
             [

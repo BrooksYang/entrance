@@ -19,6 +19,21 @@ class EntranceAdminServiceProvider extends ServiceProvider
     ];
 
     /**
+     * Setup auth configuration.
+     *
+     * @return void
+     */
+    protected function setupAuth()
+    {
+        config([
+            'auth.guards.admin.driver'    => 'session',
+            'auth.guards.admin.provider'  => 'admin',
+            'auth.providers.admin.driver' => 'eloquent',
+            'auth.providers.admin.model'  => config('entrance.user'),
+        ]);
+    }
+
+    /**
      * Bootstrap the application services.
      *
      * @return void
@@ -60,6 +75,10 @@ class EntranceAdminServiceProvider extends ServiceProvider
         // register route middleware.
         foreach ($this->routeMiddleware as $key => $middleware) {
             app('router')->aliasMiddleware($key, $middleware);
+        }
+
+        if (is_null(config('auth.guards.admin'))) {
+            $this->setupAuth();
         }
     }
 

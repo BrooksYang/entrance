@@ -25,21 +25,23 @@ class UserRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        $id = @$request->route()->parameter('user')->id;
+        $id = @$request->route()->parameter('user');
         $method = $request->method();
+
+        $table = config('entrance.users_table');
 
         if ($method == 'POST') {
             return [
-                'name'     => "required|alpha_dash|unique:users,name,$id",
-                'email'    => "required|email|unique:users,email,$id",
+                'name'     => "required|alpha_dash|unique:$table,name,$id",
+                'email'    => "required|email|unique:$table,email,$id",
                 'password' => 'required|min:6|alpha_dash',
                 'role_id'  => 'required',
             ];
         }
 
         return [
-            'name'     => "required|alpha_dash|unique:users,name,$id",
-            'email'    => "required|email|unique:users,email,$id",
+            'name'     => "required|alpha_dash|unique:$table,name,$id",
+            'email'    => "required|email|unique:$table,email,$id",
             'role_id'  => 'required',
         ];
     }

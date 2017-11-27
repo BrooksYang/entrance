@@ -2,7 +2,6 @@
 
 namespace BrooksYang\Entrance\Controllers;
 
-use BrooksYang\Entrance\Models\Group;
 use BrooksYang\Entrance\Requests\GroupRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,7 +17,9 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('keyword');
-        $groups = Group::search($keyword)
+
+        $groupModel = config('entrance.group');
+        $groups = $groupModel::search($keyword)
             ->orderBy('order')
             ->paginate();
 
@@ -43,11 +44,14 @@ class GroupController extends Controller
      */
     public function store(GroupRequest $request)
     {
-        $group = new Group();
+        $groupModel = config('entrance.group');
+
+        $group = new $groupModel();
         $group->name = $request->get('name');
         $group->description = $request->get('description');
         $group->save();
-        $group->order = Group::max('order') + 1;
+
+        $group->order = $groupModel::max('order') + 1;
         $group->save();
 
         return redirect('auth/groups');
@@ -74,7 +78,8 @@ class GroupController extends Controller
     {
         $editFlag = true;
 
-        $group = Group::findOrFail($id);
+        $groupModel = config('entrance.group');
+        $group = $groupModel::findOrFail($id);
 
         return view('entrance::entrance.group.create', compact('group', 'editFlag'));
     }
@@ -88,7 +93,8 @@ class GroupController extends Controller
      */
     public function update(GroupRequest $request, $id)
     {
-        $group = Group::findOrFail($id);
+        $groupModel = config('entrance.group');
+        $group = $groupModel::findOrFail($id);
         $group->name = $request->get('name');
         $group->description = $request->get('description');
         $group->save();
@@ -104,7 +110,8 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        $group = Group::find($id);
+        $groupModel = config('entrance.group');
+        $group = $groupModel::find($id);
         if (empty($group)) {
             return response()->json(['code' => 1, 'error' => '该板块不存在']);
         }
@@ -115,7 +122,7 @@ class GroupController extends Controller
 
         $group->delete();
 
-        Group::where('order', '>', $group->order)->decrement('order');
+        $groupModel::where('order', '>', $group->order)->decrement('order');
 
         return response()->json();
     }
@@ -129,17 +136,18 @@ class GroupController extends Controller
      */
     public function move($groupId, $action)
     {
-        $group = Group::findOrFail($groupId);
+        $groupModel = config('entrance.group');
+        $group = $groupModel::findOrFail($groupId);
 
         // 排序大于1，允许上移
         if ($group->order >=2 && $action == 'up') {
-            Group::where('order', $group->order - 1)->increment('order');
+            $groupModel::where('order', $group->order - 1)->increment('order');
             $group->decrement('order');
         }
 
         // 排序小于最大值，允许下移
-        if ($group->order < Group::max('order') && $action == 'down') {
-            Group::where('order', $group->order + 1)->decrement('order');
+        if ($group->order < $groupModel::max('order') && $action == 'down') {
+            $groupModel::where('order', $group->order + 1)->decrement('order');
             $group->increment('order');
         }
 

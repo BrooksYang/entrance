@@ -3,7 +3,6 @@
 namespace BrooksYang\Entrance\Controllers;
 
 use App\User;
-use BrooksYang\Entrance\Models\Role;
 use BrooksYang\Entrance\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,7 +18,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('keyword');
-        $users = User::with('role')->where('name', 'like', "%$keyword%")->get();
+        $userModel = config('entrance.user');
+        $users = $userModel::with('role')->where('name', 'like', "%$keyword%")->get();
 
         return view('entrance::entrance.user.index', compact('users'));
     }
@@ -31,7 +31,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        $roleModel = config('entrance.role');
+        $roles = $roleModel::all();
 
         return view('entrance::entrance.user.create', compact('roles'));
     }
@@ -44,7 +45,8 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $user = new User();
+        $userModel = config('entrance.user');
+        $user = new $userModel();
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->password = bcrypt($request->get('password'));
@@ -68,13 +70,17 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param              $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
+        $userModel = config('entrance.user');
+        $user = $userModel::findOrFail($id);
+
         $editFlag = true;
-        $roles = Role::all();
+        $roleModel = config('entrance.role');
+        $roles = $roleModel::all();
 
         return view('entrance::entrance.user.create', compact('user', 'editFlag', 'roles'));
     }
@@ -82,12 +88,15 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UserRequest  $request
-     * @param  \App\User  $user
+     * @param  UserRequest $request
+     * @param              $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, $id)
     {
+        $userModel = config('entrance.user');
+        $user = $userModel::findOrFail($id);
+
         $password = $request->get('password');
         $user->name = $request->get('name');
         $user->email = $request->get('email');
@@ -106,7 +115,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
+        $admin = config('entrance.user');
+        $user = $admin::find($id);
         if (empty($user)) {
             return response()->json(['code' => 1, 'error' => '该管理员不存在']);
         }

@@ -5,6 +5,7 @@ namespace BrooksYang\Entrance\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ResetPasswordController extends Controller
 {
@@ -29,13 +30,21 @@ class ResetPasswordController extends Controller
     protected $redirectTo = '/demo';
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * ResetPasswordController constructor.
      */
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Get the guard to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('admin');
     }
 
     /**
@@ -53,5 +62,4 @@ class ResetPasswordController extends Controller
             ['token' => $token, 'email' => $request->email]
         );
     }
-
 }

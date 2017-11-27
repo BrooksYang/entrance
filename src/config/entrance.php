@@ -2,99 +2,26 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Role Model
-    |--------------------------------------------------------------------------
-    |
-    | This is the Role model used by Entrance to create correct relations.  Update
-    | the role if it is in a different namespace.
-    |
-    */
-    'role' => 'BrooksYang\Entrance\Models\Role',
+    // Admin tables and model.
+    'users_table' => 'auth_admins',
+    'user' => BrooksYang\Entrance\Models\Administrator::class,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Roles Table
-    |--------------------------------------------------------------------------
-    |
-    | This is the roles table used by Entrance to save roles to the database.
-    |
-    */
+    // Role tables and model.
     'roles_table' => 'auth_roles',
+    'role' => BrooksYang\Entrance\Models\Role::class,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Permission Model
-    |--------------------------------------------------------------------------
-    |
-    | This is the Permission model used by Entrance to create correct relations.
-    | Update the permission if it is in a different namespace.
-    |
-    */
-    'permission' => 'BrooksYang\Entrance\Models\Permission',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Permissions Table
-    |--------------------------------------------------------------------------
-    |
-    | This is the permissions table used by Entrance to save permissions to the
-    | database.
-    |
-    */
+    // Permission tables and model.
     'permissions_table' => 'auth_permissions',
+    'permission' => BrooksYang\Entrance\Models\Permission::class,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance permission_role Table
-    |--------------------------------------------------------------------------
-    |
-    | This is the permission_role table used by Entrance to save relationship
-    | between permissions and roles to the database.
-    |
-    */
-    'permission_role_table' => 'auth_permission_role',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Modules Model
-    |--------------------------------------------------------------------------
-    |
-    | This is the Role model used by Entrance to create correct relations.  Update
-    | the module if it is in a different namespace.
-    |
-    */
-    'module' => 'BrooksYang\Entrance\Models\Module',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Modules Table
-    |--------------------------------------------------------------------------
-    |
-    | This is the modules table used by Entrance to save modules to the database.
-    |
-    */
+    // Module tables and model.
     'modules_table' => 'auth_modules',
+    'module' => BrooksYang\Entrance\Models\Module::class,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Groups Model
-    |--------------------------------------------------------------------------
-    |
-    | This is the Group model used by Entrance to create correct relations.  Update
-    | the group if it is in a different namespace.
-    |
-    */
-    'group' => 'BrooksYang\Entrance\Models\Group',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Groups Table
-    |--------------------------------------------------------------------------
-    |
-    | This is the groups table used by Entrance to save groups to the database.
-    |
-    */
+    // Group tables and model.
     'groups_table' => 'auth_groups',
+    'group' => BrooksYang\Entrance\Models\Group::class,
+
+    // Pivot table.
+    'permission_role_table' => 'auth_permission_role',
 ];
