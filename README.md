@@ -95,7 +95,7 @@ BrooksYang\Entrance\EntranceServiceProvider::class, // 权限相关内容
 BrooksYang\Entrance\EntranceAdminServiceProvider::class, // 实现基本业务逻辑，并集成cannavaro后台基础框架
 ```
 
-在User model中use EntranceUserTrait
+在User model中use EntranceUserTrait(v2.1版本已内置用户系统，可跳过该步骤)
 ```php
 <?php
  
@@ -134,7 +134,6 @@ php artisan entrance:install
 
 ### TODO LIST
 
-- [ ] 实现model自定义功能
 - [ ] 模块排序
 - [ ] 模块图标
 - [ ] 操作日志
