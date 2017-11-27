@@ -1,5 +1,6 @@
 # v2 Demo
 http://45.32.35.75:9001/
+##### demo服务器维护中，暂停访问
 ```php
 // 超管
 用户名：admin@admin.com
@@ -21,66 +22,6 @@ composer require predis/predis
 ```php
 CACHE_DRIVER=redis
 ```
-
-# v1 版本（master分支）
-
-安装
-```php
-composer require brooksyang/entrance:"^v1.0"
-```
- 
-在config/app.php中的providers数组中添加以下内容
-```php
-BrooksYang\Entrance\EntranceServiceProvider::class,
-```
-
-在User model中use EntranceUserTrait
-```php
-<?php
- 
-namespace App;
- 
-use BrooksYang\Entrance\Traits\EntranceUserTrait;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
- 
-class User extends Authenticatable
-{
-    // use EntranceUserTrait 即可
-    use Notifiable, EntranceUserTrait;
-}
-
-```
-重写配置文件，该命令将生成config/entrance.php配置文件
-```php
-php artisan vendor:publish --tag=entrance
-```
-
-### 开始使用
-
-config/entrance.php中默认定义了一些配置项，如：无权限页面的跳转路径，model等，若想自定义model，修改配置文件之后，需要继承原model，如自定义Role.php文件，需要以下步骤：
-```php
-php artisan make:model Role
-```
- 
-修改config/entrance.php配置文件
-```php
-'role' => 'BrooksYang\Entrance\Models\Role',
-```
-
-修改Role model
-```php
-<?php
- 
-namespace App;
- 
-class Role extends \BrooksYang\Entrance\Models\Role
-{
-    //
-}
-```
-
-其它model的自定义同上
 
 # v2 版本（admin分支）
 
@@ -112,7 +53,7 @@ class User extends Authenticatable
 }
 ```
 
-重写配置文件和资源文件，该命令将生成config/entrance.php配置文件，和public/assets基础资源文件
+重写配置文件和资源文件
 ```php
 php artisan vendor:publish --tag=entrance
 ```
