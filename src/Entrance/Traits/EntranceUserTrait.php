@@ -14,7 +14,7 @@ trait EntranceUserTrait
     private function cachedKey()
     {
         $userPrimaryKey = $this->primaryKey;
-        $cachedKey = 'entrance_role_for_user_' . $this->$userPrimaryKey;
+        $cachedKey = config('entrance.cache_tag_prefix') . '_entrance_role_for_user_' . $this->$userPrimaryKey;
 
         return $cachedKey;
     }
@@ -27,7 +27,7 @@ trait EntranceUserTrait
     private function cachedMenuKey()
     {
         $userPrimaryKey = $this->primaryKey;
-        $cachedKey = 'entrance_menu_for_user_' . $this->$userPrimaryKey;
+        $cachedKey = config('entrance.cache_tag_prefix') . '_entrance_menu_for_user_' . $this->$userPrimaryKey;
 
         return $cachedKey;
     }
@@ -41,7 +41,7 @@ trait EntranceUserTrait
     {
         $cachedKey = $this->cachedKey();
 
-        return Cache::tags('role_users')->remember($cachedKey, config('session.lifetime'), function () {
+        return Cache::tags(config('entrance.cache_tag_prefix') . '_role_users')->remember($cachedKey, config('entrance.cache_ttl'), function () {
             return $this->role;
         });
     }
@@ -55,7 +55,7 @@ trait EntranceUserTrait
     {
         $cachedKey = $this->cachedMenuKey();
 
-        return Cache::tags('user_menus')->remember($cachedKey, config('session.lifetime'), function () {
+        return Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->remember($cachedKey, config('entrance.cache_ttl'), function () {
 
             // 获取该角色拥有的权限id，及所属模块id
             $permissions = $this->cachedRole()->permissions();
@@ -107,8 +107,8 @@ trait EntranceUserTrait
     public function save(array $options = [])
     {
         $result = parent::save($options);
-        Cache::tags('role_users')->flush();
-        Cache::tags('user_menus')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_users')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
 
         return $result;
     }
@@ -122,8 +122,8 @@ trait EntranceUserTrait
     public function delete(array $options = [])
     {
         $result = parent::delete($options);
-        Cache::tags('role_users')->flush();
-        Cache::tags('user_menus')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_users')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
 
         return $result;
     }
@@ -136,8 +136,8 @@ trait EntranceUserTrait
     public function restore()
     {
         $result = parent::restore();
-        Cache::tags('role_users')->flush();
-        Cache::tags('user_menus')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_users')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
 
         return $result;
     }

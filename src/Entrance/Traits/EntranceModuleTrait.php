@@ -14,9 +14,9 @@ trait EntranceModuleTrait
     public function cachedPermissions()
     {
         $modulePrimaryKey = $this->primaryKey;
-        $cacheKey = 'entrance_permissions_for_module_' . $this->$modulePrimaryKey;
+        $cacheKey = config('entrance.cache_tag_prefix') . '_entrance_permissions_for_module_' . $this->$modulePrimaryKey;
 
-        return Cache::tags('module_permissions')->remember($cacheKey, config('session.lifetime'), function () {
+        return Cache::tags(config('entrance.cache_tag_prefix') . '_module_permissions')->remember($cacheKey, config('entrance.cache_ttl'), function () {
             return $this->permissions()->get();
         });
     }
@@ -30,8 +30,8 @@ trait EntranceModuleTrait
     public function save(array $options = [])
     {
         $result = parent::save($options);
-        Cache::tags('module_permissions')->flush();
-        Cache::tags('user_menus')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_module_permissions')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
 
         return $result;
     }
@@ -45,8 +45,8 @@ trait EntranceModuleTrait
     public function delete(array $options = [])
     {
         $result = parent::delete($options);
-        Cache::tags('module_permissions')->flush();
-        Cache::tags('user_menus')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_module_permissions')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
 
         return $result;
     }
@@ -59,8 +59,8 @@ trait EntranceModuleTrait
     public function restore()
     {
         $result = parent::restore();
-        Cache::tags('module_permissions')->flush();
-        Cache::tags('user_menus')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_module_permissions')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
 
         return $result;
     }

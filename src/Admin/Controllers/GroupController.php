@@ -152,7 +152,7 @@ class GroupController extends Controller
         }
 
         // 清空菜单缓存
-        \Cache::tags('user_menus')->flush();
+        \Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
 
         return redirect('auth/groups');
     }

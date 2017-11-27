@@ -2,6 +2,12 @@
 
 return [
 
+    // Cache tag prefix
+    'cache_tag_prefix' => env('CACHE_TAG_PREFIX', 'entrance'),
+
+    // Cache ttl
+    'cache_ttl' => env('CACHE_TTL', 120),
+
     // Admin tables and model.
     'users_table' => 'auth_admins',
     'user' => BrooksYang\Entrance\Models\Administrator::class,

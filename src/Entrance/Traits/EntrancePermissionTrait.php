@@ -15,8 +15,8 @@ trait EntrancePermissionTrait
     public function save(array $options = [])
     {
         $result = parent::save($options);
-        Cache::tags('role_permissions')->flush();
-        Cache::tags('user_menus')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_permissions')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
 
         return $result;
     }
@@ -30,8 +30,8 @@ trait EntrancePermissionTrait
     public function delete(array $options = [])
     {
         $result = parent::delete($options);
-        Cache::tags('role_permissions')->flush();
-        Cache::tags('user_menus')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_permissions')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
 
         return $result;
     }
@@ -44,8 +44,8 @@ trait EntrancePermissionTrait
     public function restore()
     {
         $result = parent::restore();
-        Cache::tags('role_permissions')->flush();
-        Cache::tags('user_menus')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_permissions')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
 
         return $result;
     }

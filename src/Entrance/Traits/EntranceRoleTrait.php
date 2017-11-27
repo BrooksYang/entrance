@@ -14,7 +14,7 @@ trait EntranceRoleTrait
     private function cachedKey()
     {
         $rolePrimaryKey = $this->primaryKey;
-        $cacheKey = 'entrance_permissions_for_role_' . $this->$rolePrimaryKey;
+        $cacheKey = config('entrance.cache_tag_prefix') . '_entrance_permissions_for_role_' . $this->$rolePrimaryKey;
 
         return $cacheKey;
     }
@@ -28,7 +28,7 @@ trait EntranceRoleTrait
     {
         $cacheKey = $this->cachedKey();
 
-        return Cache::tags('role_permissions')->remember($cacheKey, config('session.lifetime'), function () {
+        return Cache::tags(config('entrance.cache_tag_prefix') . '_role_permissions')->remember($cacheKey, config('entrance.cache_ttl'), function () {
             return $this->permissions()->get();
         });
     }
@@ -42,7 +42,7 @@ trait EntranceRoleTrait
     public function save(array $options = [])
     {
         $result = parent::save($options);
-        Cache::tags('role_permissions')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_permissions')->flush();
 
         return $result;
     }
@@ -56,7 +56,7 @@ trait EntranceRoleTrait
     public function delete(array $options = [])
     {
         $result = parent::delete($options);
-        Cache::tags('role_permissions')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_permissions')->flush();
 
         return $result;
     }
@@ -69,7 +69,7 @@ trait EntranceRoleTrait
     public function restore()
     {
         $result = parent::restore();
-        Cache::tags('role_permissions')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_permissions')->flush();
 
         return $result;
     }
@@ -105,7 +105,7 @@ trait EntranceRoleTrait
     {
         $cacheKey = $this->cachedKey();
 
-        $permissions = Cache::tags('role_permissions')->remember($cacheKey, config('session.lifetime'), function () use ($method, $uri) {
+        $permissions = Cache::tags(config('entrance.cache_tag_prefix') . '_role_permissions')->remember($cacheKey, config('entrance.cache_ttl'), function () use ($method, $uri) {
             return $this->permissions()->get();
         });
 
@@ -149,8 +149,8 @@ trait EntranceRoleTrait
             $this->permissions()->detach();
         }
 
-        Cache::tags('role_permissions')->flush();
-        Cache::tags('role_users')->flush();
-        Cache::tags('user_menus')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_permissions')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_users')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
     }
 }
