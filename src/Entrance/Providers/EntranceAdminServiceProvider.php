@@ -6,6 +6,7 @@ use BrooksYang\Entrance\Middleware\EntrancePermission;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use BrooksYang\Entrance\Facades\Entrance;
 
 class EntranceAdminServiceProvider extends ServiceProvider
 {
@@ -58,7 +59,7 @@ class EntranceAdminServiceProvider extends ServiceProvider
 
         // Breadcrumb View Share
         View::composer(['entrance::layouts.include.breadcrumb', 'entrance::layouts.include.side_menu'], function ($view) {
-            $view->with('breadcrumb', \Auth::user()->breadcrumb());
+            $view->with('breadcrumb', Entrance::user()->breadcrumb());
         });
 
         // Validation Rules

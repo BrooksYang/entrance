@@ -31,7 +31,7 @@
             <li>
                 <a data-toggle="dropdown" class="dropdown-toggle text-white" href="#">
                     <img alt="" class="admin-pic img-circle" src="http://api.randomuser.me/portraits/thumb/men/23.jpg">
-                    Hi, {{ Auth::user()->name }} <b class="caret"></b>
+                    Hi, {{ Entrance::user()->name }} <b class="caret"></b>
                 </a>
                 <ul style="margin:25px 15px 0 0;" role="menu" class="dropdown-setting dropdown-menu bg-amber">
                     <li>

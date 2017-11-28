@@ -11,7 +11,7 @@
             <li>
                 <a href="javascript:;">{{ @$breadcrumb->module->group->name ?: @$breadcrumb->group->name }}</a>
             </li>
-            @if ($breadcrumb->module)
+            @if (@$breadcrumb->module)
                 <li>
                     <a href="javascript:;">{{ @$breadcrumb->module->name }}</a>
                 </li>

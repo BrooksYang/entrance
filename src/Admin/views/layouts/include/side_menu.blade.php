@@ -11,7 +11,7 @@
                     <ul id="menu-showhide" class="topnav">
 
                         {{-- Groups --}}
-                        @foreach (Auth::user()->menus() as $group)
+                        @foreach (Entrance::user()->menus() as $group)
                             <li class="devider-title">
                                 <h3>
                                     <span>{{ $group->name }}</span>
