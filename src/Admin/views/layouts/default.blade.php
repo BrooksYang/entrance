@@ -33,7 +33,9 @@
     <link href="{{ url('vendor/entrance/js/pace/themes/orange/pace-theme-flash.css') }}" rel="stylesheet" />
 
     @section('css-part')
-
+        <style>
+            a:hover{text-decoration:none}
+        </style>
     @show
 </head>
 
