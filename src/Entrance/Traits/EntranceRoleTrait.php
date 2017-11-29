@@ -75,6 +75,23 @@ trait EntranceRoleTrait
     }
 
     /**
+     * Flush cache when attaching a model to the parent.
+     *
+     * @param  mixed  $id
+     * @param  array  $attributes
+     * @param  bool   $touch
+     * @return void
+     */
+    public function attach($id, array $attributes = [], $touch = true)
+    {
+        parent::attach($id, $attributes, $touch);
+
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_permissions')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_role_users')->flush();
+        Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->flush();
+    }
+
+    /**
      * One-to-Many relations with the user model.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

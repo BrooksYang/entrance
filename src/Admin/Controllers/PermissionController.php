@@ -67,6 +67,10 @@ class PermissionController extends Controller
         $permission->icon = $type ? $request->get('icon') : null;
         $permission->save();
 
+        $roleModel = config('entrance.role');
+        $role = $roleModel::find(1);
+        if (!empty($role)) $role->permissions()->attach($permission->id);
+
         return redirect('auth/permissions');
     }
 
