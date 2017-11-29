@@ -34,7 +34,7 @@
 
     @section('css-part')
         <style>
-            a:hover{text-decoration:none}
+            a:hover, a:focus { text-decoration: none }
         </style>
     @show
 </head>
