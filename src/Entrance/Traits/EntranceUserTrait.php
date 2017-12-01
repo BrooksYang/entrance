@@ -58,7 +58,7 @@ trait EntranceUserTrait
         return Cache::tags(config('entrance.cache_tag_prefix') . '_user_menus')->remember($cachedKey, config('entrance.cache_ttl'), function () {
 
             // 获取该角色拥有的权限id，及所属模块id
-            $permissions = $this->cachedRole()->permissions();
+            $permissions = $this->cachedRole()->permissions()->where('is_visible', 1);
             $permissionIds = $permissions->pluck('id');
             $moduleIds = $permissions->distinct()->pluck('module_id');
 
