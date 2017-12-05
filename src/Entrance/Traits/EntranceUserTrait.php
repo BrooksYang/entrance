@@ -72,11 +72,16 @@ trait EntranceUserTrait
                 $query->whereIn('id', $moduleIds);
             };
 
+            // 查询指定permission in group
+            $permissionsInGroupQuery = function ($query) use ($permissionIds) {
+                $query->where('is_visible', 1)->whereIn('id', $permissionIds);
+            };
+
             // 获取该角色可访问并且可见的权限菜单
             $group = config('entrance.group');
             $groups = $group::whereHas('modules.permissions', $permissionQuery)
-                ->orWhereHas('permissions')
-                ->with(['modules' => $modulesQuery, 'modules.permissions' => $permissionQuery, 'permissions'])
+                ->orWhereHas('permissions', $permissionsInGroupQuery)
+                ->with(['modules' => $modulesQuery, 'modules.permissions' => $permissionQuery, 'permissions' => $permissionsInGroupQuery])
                 ->orderBy('order')
                 ->get();
 
