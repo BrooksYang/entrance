@@ -23,12 +23,12 @@
     </ol>
 
     {{-- Search --}}
-    <div class="dark" style="visibility: visible;">
-        <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-                <input type="text" name="keyword" value="{{ Request::get('keyword') }}"
-                       class="form-control search rounded id_search" placeholder="Search">
-            </div>
-        </form>
-    </div>
+    {{--<div class="dark" style="visibility: visible;">--}}
+        {{--<form class="navbar-form navbar-left" role="search">--}}
+            {{--<div class="form-group">--}}
+                {{--<input type="text" name="keyword" value="{{ Request::get('keyword') }}"--}}
+                       {{--class="form-control search rounded id_search" placeholder="Search">--}}
+            {{--</div>--}}
+        {{--</form>--}}
+    {{--</div>--}}
 </div>

@@ -81,35 +81,6 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-8">
-            <div class="box">
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div class="btn-group" id="realtime" data-toggle="btn-toggle">
-                        <button type="button" class="btn btn-default btn-xs" data-toggle="on">On</button>
-                        <button type="button" class="btn btn-default btn-xs" data-toggle="off">Off</button>
-                    </div>
-                    <div id="interactive" style="height: 200px;"></div>
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-        </div>
-
-        <div class="col-lg-4">
-            <div class="box">
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div id="line-chart" style="height: 235px;"></div>
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-        </div>
-
-    </div>
-
-    <div class="row">
         <div class="col-lg-2">
             <div class="content-bg">
                 <div class="content-icon">

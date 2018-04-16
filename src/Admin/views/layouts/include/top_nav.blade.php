@@ -22,7 +22,7 @@
         <div style="margin-bottom:0;" class="alert text-white ">
             <button data-dismiss="alert" class="close" type="button">×</button>
             <span class="entypo-info-circled"></span>
-            <strong>系统欢迎消息</strong>&nbsp;&nbsp;您可以在这里发布系统欢迎或者提醒消息
+            <strong>{{ config('app.welcome_msg') }}</strong>
         </div>
     </div>
 
@@ -30,15 +30,17 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a data-toggle="dropdown" class="dropdown-toggle text-white" href="#">
-                    <img alt="" class="admin-pic img-circle" src="http://api.randomuser.me/portraits/thumb/men/23.jpg">
+                    <img alt="" class="admin-pic img-circle" src="{{ url('assets/images/avatar.png') }}">
                     Hi, {{ Entrance::user()->name }} <b class="caret"></b>
                 </a>
                 <ul style="margin:25px 15px 0 0;" role="menu" class="dropdown-setting dropdown-menu bg-amber">
                     <li>
-                        <a href="{{ url('profile') }}"><span class="entypo-user"></span>&nbsp;&nbsp;个人资料</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="entypo-vcard"></span>&nbsp;&nbsp;账号管理</a>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  class="text-white">
+                            <i class="icon-upload"></i>&nbsp;&nbsp;退出
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
                     </li>
                 </ul>
             </li>
