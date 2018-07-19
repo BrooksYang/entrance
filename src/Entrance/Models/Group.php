@@ -2,14 +2,13 @@
 
 namespace BrooksYang\Entrance\Models;
 
-use BrooksYang\Entrance\Contracts\PermissionInterface;
-use BrooksYang\Entrance\Traits\EntrancePermissionTrait;
+use BrooksYang\Entrance\Traits\EntranceGroupTrait;
 use BrooksYang\Entrance\Traits\KeywordSearchTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Permission extends Model implements PermissionInterface
+class Group extends Model
 {
-    use EntrancePermissionTrait;
+    use EntranceGroupTrait;
 
     /**
      * The database table used by the model.
@@ -24,7 +23,7 @@ class Permission extends Model implements PermissionInterface
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'method', 'uri', 'module_id', 'group_id', 'icon', 'is_visible',
+        'name', 'description', 'order',
     ];
 
     /**
@@ -35,13 +34,6 @@ class Permission extends Model implements PermissionInterface
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('entrance.permissions_table');
+        $this->table = config('entrance.groups_table');
     }
-
-    /**
-     * Request Methods
-     *
-     * @var array
-     */
-    static $methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 }

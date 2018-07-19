@@ -28,6 +28,6 @@ class Entrance
      */
     public function user()
     {
-        return $this->app->auth->user();
+        return $this->app->auth->guard('admin')->user();
     }
 }

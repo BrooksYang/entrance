@@ -14,9 +14,22 @@ trait EntranceUserTrait
     private function cachedKey()
     {
         $userPrimaryKey = $this->primaryKey;
-        $cacheKey = 'entrance_role_for_user_' . $this->$userPrimaryKey;
+        $cachedKey = 'entrance_role_for_user_' . $userPrimaryKey;
 
-        return $cacheKey;
+        return $cachedKey;
+    }
+
+    /**
+     * get the Cache Key
+     *
+     * @return string
+     */
+    private function cachedMenuKey()
+    {
+        $userPrimaryKey = $this->primaryKey;
+        $cachedKey = 'entrance_menu_for_user_' . $userPrimaryKey;
+
+        return $cachedKey;
     }
 
     /**
@@ -26,11 +39,68 @@ trait EntranceUserTrait
      */
     public function cachedRole()
     {
-        $cacheKey = $this->cachedKey();
+        $cachedKey = $this->cachedKey();
 
-        return Cache::tags('role_users')->remember($cacheKey, config('session.lifetime'), function () {
+        return Cache::tags('role_users')->remember($cachedKey, config('entrance.cache_ttl'), function () {
             return $this->role;
         });
+    }
+
+    /**
+     * Get the menus
+     *
+     * @return int
+     */
+    public function menus()
+    {
+        $cachedKey = $this->cachedMenuKey();
+
+        return Cache::tags('user_menus')->remember($cachedKey, config('entrance.cache_ttl'), function () {
+
+            // 获取该角色拥有的权限id，及所属模块id
+            $permissions = $this->cachedRole()->permissions()->where('is_visible', 1);
+            $permissionIds = $permissions->pluck('id');
+            $moduleIds = $permissions->distinct()->pluck('module_id');
+
+            // 查询指定的可见permission
+            $permissionQuery = function ($query) use ($permissionIds) {
+                $query->where('is_visible', 1)->whereIn('id', $permissionIds);
+            };
+
+            // 查询指定的module
+            $modulesQuery = function ($query) use ($moduleIds) {
+                $query->whereIn('id', $moduleIds);
+            };
+
+            // 查询指定permission in group
+            $permissionsInGroupQuery = function ($query) use ($permissionIds) {
+                $query->where('is_visible', 1)->whereIn('id', $permissionIds);
+            };
+
+            // 获取该角色可访问并且可见的权限菜单
+            $group = config('entrance.group');
+            $groups = $group::whereHas('modules.permissions', $permissionQuery)
+                ->orWhereHas('permissions', $permissionsInGroupQuery)
+                ->with(['modules' => $modulesQuery, 'modules.permissions' => $permissionQuery, 'permissions' => $permissionsInGroupQuery])
+                ->orderBy('order')
+                ->get();
+
+            return $groups;
+        });
+    }
+
+    /**
+     * Get the breadcrumb
+     *
+     * @return mixed
+     */
+    public function breadcrumb()
+    {
+        $method = \Request::method();
+        $uri = \Request::route()->uri();
+        $permission = config('entrance.permission');
+
+        return $permission::with(['module.group', 'group'])->where(['method' => $method, 'uri' => $uri])->first();
     }
 
     /**
@@ -43,6 +113,7 @@ trait EntranceUserTrait
     {
         $result = parent::save($options);
         Cache::tags('role_users')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -57,6 +128,7 @@ trait EntranceUserTrait
     {
         $result = parent::delete($options);
         Cache::tags('role_users')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -70,6 +142,7 @@ trait EntranceUserTrait
     {
         $result = parent::restore();
         Cache::tags('role_users')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }

@@ -16,6 +16,7 @@ trait EntrancePermissionTrait
     {
         $result = parent::save($options);
         Cache::tags('role_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -30,6 +31,7 @@ trait EntrancePermissionTrait
     {
         $result = parent::delete($options);
         Cache::tags('role_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -43,6 +45,7 @@ trait EntrancePermissionTrait
     {
         $result = parent::restore();
         Cache::tags('role_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -65,6 +68,16 @@ trait EntrancePermissionTrait
     public function module()
     {
         return $this->belongsTo(config('entrance.module'));
+    }
+
+    /**
+     * One-to-Many relations with group model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function group()
+    {
+        return $this->belongsTo(config('entrance.group'));
     }
 
     /**

@@ -2,13 +2,13 @@
 
 namespace BrooksYang\Entrance\Models;
 
-use BrooksYang\Entrance\Contracts\ModuleInterface;
-use BrooksYang\Entrance\Traits\EntranceModuleTrait;
-use Illuminate\Database\Eloquent\Model;
+use BrooksYang\Entrance\Traits\EntranceUserTrait;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Module extends Model implements ModuleInterface
+class Administrator extends Authenticatable
 {
-    use EntranceModuleTrait;
+    use Notifiable, EntranceUserTrait;
 
     /**
      * The database table used by the model.
@@ -23,7 +23,7 @@ class Module extends Model implements ModuleInterface
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'icon', 'group_id',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -34,6 +34,6 @@ class Module extends Model implements ModuleInterface
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('entrance.modules_table');
+        $this->table = config('entrance.users_table');
     }
 }

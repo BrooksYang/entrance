@@ -14,7 +14,7 @@ trait EntranceRoleTrait
     private function cachedKey()
     {
         $rolePrimaryKey = $this->primaryKey;
-        $cacheKey = 'entrance_permissions_for_role_' . $this->$rolePrimaryKey;
+        $cacheKey = 'entrance_permissions_for_role_' . $rolePrimaryKey;
 
         return $cacheKey;
     }
@@ -28,7 +28,7 @@ trait EntranceRoleTrait
     {
         $cacheKey = $this->cachedKey();
 
-        return Cache::tags('role_permissions')->remember($cacheKey, config('session.lifetime'), function () {
+        return Cache::tags('role_permissions')->remember($cacheKey, config('entrance.cache_ttl'), function () {
             return $this->permissions()->get();
         });
     }
@@ -75,6 +75,23 @@ trait EntranceRoleTrait
     }
 
     /**
+     * Flush cache when attaching a model to the parent.
+     *
+     * @param  mixed  $id
+     * @param  array  $attributes
+     * @param  bool   $touch
+     * @return void
+     */
+    public function attach($id, array $attributes = [], $touch = true)
+    {
+        parent::attach($id, $attributes, $touch);
+
+        Cache::tags('role_permissions')->flush();
+        Cache::tags('role_users')->flush();
+        Cache::tags('user_menus')->flush();
+    }
+
+    /**
      * One-to-Many relations with the user model.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -105,7 +122,7 @@ trait EntranceRoleTrait
     {
         $cacheKey = $this->cachedKey();
 
-        $permissions = Cache::tags('role_permissions')->remember($cacheKey, config('session.lifetime'), function () use ($method, $uri) {
+        $permissions = Cache::tags('role_permissions')->remember($cacheKey, config('entrance.cache_ttl'), function () use ($method, $uri) {
             return $this->permissions()->get();
         });
 
@@ -151,5 +168,6 @@ trait EntranceRoleTrait
 
         Cache::tags('role_permissions')->flush();
         Cache::tags('role_users')->flush();
+        Cache::tags('user_menus')->flush();
     }
 }

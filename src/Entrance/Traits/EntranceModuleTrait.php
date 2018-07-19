@@ -14,9 +14,9 @@ trait EntranceModuleTrait
     public function cachedPermissions()
     {
         $modulePrimaryKey = $this->primaryKey;
-        $cacheKey = 'entrance_permissions_for_module_' . $this->$modulePrimaryKey;
+        $cacheKey = 'entrance_permissions_for_module_' . $modulePrimaryKey;
 
-        return Cache::tags('module_permissions')->remember($cacheKey, config('session.lifetime'), function () {
+        return Cache::tags('module_permissions')->remember($cacheKey, config('entrance.cache_ttl'), function () {
             return $this->permissions()->get();
         });
     }
@@ -31,6 +31,7 @@ trait EntranceModuleTrait
     {
         $result = parent::save($options);
         Cache::tags('module_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -45,6 +46,7 @@ trait EntranceModuleTrait
     {
         $result = parent::delete($options);
         Cache::tags('module_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -58,6 +60,7 @@ trait EntranceModuleTrait
     {
         $result = parent::restore();
         Cache::tags('module_permissions')->flush();
+        Cache::tags('user_menus')->flush();
 
         return $result;
     }
@@ -70,5 +73,15 @@ trait EntranceModuleTrait
     public function permissions()
     {
         return $this->hasMany(config('entrance.permission'));
+    }
+
+    /**
+     * One-to-Many relations with the group model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function group()
+    {
+        return $this->belongsTo(config('entrance.group'));
     }
 }

@@ -2,78 +2,45 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Role Model
-    |--------------------------------------------------------------------------
-    |
-    | This is the Role model used by Entrance to create correct relations.  Update
-    | the role if it is in a different namespace.
-    |
-    */
-    'role' => 'BrooksYang\Entrance\Models\Role',
+    // Cache ttl
+    'cache_ttl'             => env('CACHE_TTL', 120),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Roles Table
-    |--------------------------------------------------------------------------
-    |
-    | This is the roles table used by Entrance to save roles to the database.
-    |
-    */
-    'roles_table' => 'auth_roles',
+    // Admin tables and model.
+    'users_table'           => 'auth_admins',
+    'user'                  => BrooksYang\Entrance\Models\Administrator::class,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Permission Model
-    |--------------------------------------------------------------------------
-    |
-    | This is the Permission model used by Entrance to create correct relations.
-    | Update the permission if it is in a different namespace.
-    |
-    */
-    'permission' => 'BrooksYang\Entrance\Models\Permission',
+    // Role tables and model.
+    'roles_table'           => 'auth_roles',
+    'role'                  => BrooksYang\Entrance\Models\Role::class,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Permissions Table
-    |--------------------------------------------------------------------------
-    |
-    | This is the permissions table used by Entrance to save permissions to the
-    | database.
-    |
-    */
-    'permissions_table' => 'auth_permissions',
+    // Permission tables and model.
+    'permissions_table'     => 'auth_permissions',
+    'permission'            => BrooksYang\Entrance\Models\Permission::class,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance permission_role Table
-    |--------------------------------------------------------------------------
-    |
-    | This is the permission_role table used by Entrance to save relationship
-    | between permissions and roles to the database.
-    |
-    */
+    // Module tables and model.
+    'modules_table'         => 'auth_modules',
+    'module'                => BrooksYang\Entrance\Models\Module::class,
+
+    // Group tables and model.
+    'groups_table'          => 'auth_groups',
+    'group'                 => BrooksYang\Entrance\Models\Group::class,
+
+    // Pivot table.
     'permission_role_table' => 'auth_permission_role',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Modules Model
-    |--------------------------------------------------------------------------
-    |
-    | This is the Role model used by Entrance to create correct relations.  Update
-    | the module if it is in a different namespace.
-    |
-    */
-    'module' => 'BrooksYang\Entrance\Models\Module',
+    // guard of administrator
+    'guards'                => [
+        'admin' => [
+            'driver'   => 'session',
+            'provider' => 'admin',
+        ],
+    ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Entrance Modules Table
-    |--------------------------------------------------------------------------
-    |
-    | This is the modules table used by Entrance to save modules to the database.
-    |
-    */
-    'modules_table' => 'auth_modules',
+    // provider for administrator
+    'providers'             => [
+        'admin' => [
+            'driver' => 'eloquent',
+            'model'  => config('entrance.user'),
+        ],
+    ],
 ];
