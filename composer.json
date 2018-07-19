@@ -16,5 +16,15 @@
         "psr-0": {
             "BrooksYang\\Entrance\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BrooksYang\\Entrance\\EntranceServiceProvider"
+            ],
+            "aliases": {
+                "Entrance": "BrooksYang\\Entrance\\Facades\\Entrance"
+            }
+        }
     }
 }
