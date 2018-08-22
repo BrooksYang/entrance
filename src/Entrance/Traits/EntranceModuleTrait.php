@@ -14,7 +14,7 @@ trait EntranceModuleTrait
     public function cachedPermissions()
     {
         $modulePrimaryKey = $this->primaryKey;
-        $cacheKey = 'entrance_permissions_for_module_' . $modulePrimaryKey;
+        $cacheKey = 'entrance_permissions_for_module_' . $this->$modulePrimaryKey;
 
         return Cache::tags('module_permissions')->remember($cacheKey, config('entrance.cache_ttl'), function () {
             return $this->permissions()->get();

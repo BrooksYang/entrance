@@ -14,7 +14,7 @@ trait EntranceRoleTrait
     private function cachedKey()
     {
         $rolePrimaryKey = $this->primaryKey;
-        $cacheKey = 'entrance_permissions_for_role_' . $rolePrimaryKey;
+        $cacheKey = 'entrance_permissions_for_role_' . $this->$rolePrimaryKey;
 
         return $cacheKey;
     }

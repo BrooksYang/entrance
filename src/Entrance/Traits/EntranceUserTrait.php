@@ -14,7 +14,7 @@ trait EntranceUserTrait
     private function cachedKey()
     {
         $userPrimaryKey = $this->primaryKey;
-        $cachedKey = 'entrance_role_for_user_' . $userPrimaryKey;
+        $cachedKey = 'entrance_role_for_user_' . $this->$userPrimaryKey;
 
         return $cachedKey;
     }
@@ -27,7 +27,7 @@ trait EntranceUserTrait
     private function cachedMenuKey()
     {
         $userPrimaryKey = $this->primaryKey;
-        $cachedKey = 'entrance_menu_for_user_' . $userPrimaryKey;
+        $cachedKey = 'entrance_menu_for_user_' . $this->$userPrimaryKey;
 
         return $cachedKey;
     }
